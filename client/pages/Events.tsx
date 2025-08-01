@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { eventStorage, type Event } from "@/lib/events";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,22 +25,7 @@ import {
   LogIn,
 } from "lucide-react";
 
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  venue: string;
-  category: string;
-  maxSeats: number;
-  attendees: number;
-  organizer: string;
-  createdAt: string;
-  status: string;
-  image?: string;
-  registrations: string[];
-}
+
 
 export default function Events() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -71,14 +57,7 @@ export default function Events() {
 
   const loadEvents = () => {
     try {
-      const storedEvents = localStorage.getItem('eventhub_events');
-      const allEvents = storedEvents ? JSON.parse(storedEvents) : [];
-      
-      // Filter only active/upcoming events for public display
-      const activeEvents = allEvents.filter((event: Event) => 
-        event.status !== 'cancelled' && new Date(event.date) >= new Date()
-      );
-      
+      const activeEvents = eventStorage.getActiveEvents();
       setEvents(activeEvents);
     } catch (error) {
       console.error('Failed to load events:', error);
@@ -110,13 +89,7 @@ export default function Events() {
   };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+    return eventStorage.formatDate(dateString);
   };
 
   const getAvailableSeats = (event: Event) => {
