@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from "react";
+import { eventStorage, type Event } from "@/lib/events";
 import {
   Calendar,
   Users,
@@ -13,6 +15,48 @@ import {
 } from "lucide-react";
 
 export default function Index() {
+  const [realTimeStats, setRealTimeStats] = useState({
+    activeEvents: 0,
+    totalStudents: 0,
+    thisMonth: 0,
+    featured: 0
+  });
+
+  useEffect(() => {
+    updateRealTimeStats();
+  }, []);
+
+  const updateRealTimeStats = () => {
+    const allEvents = eventStorage.getAllEvents();
+    const activeEvents = eventStorage.getActiveEvents();
+
+    // Calculate this month's events
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    const thisMonthEvents = allEvents.filter(event => {
+      const eventDate = new Date(event.date);
+      return eventDate.getMonth() === currentMonth &&
+             eventDate.getFullYear() === currentYear;
+    });
+
+    // Calculate total students (sum of all attendees)
+    const totalStudents = allEvents.reduce((sum, event) => sum + event.attendees, 0);
+
+    // Count featured events (you can add a featured property to events later)
+    const featuredEvents = activeEvents.filter(event =>
+      event.attendees > 100 // Consider high-attendance events as "featured"
+    );
+
+    setRealTimeStats({
+      activeEvents: activeEvents.length,
+      totalStudents: totalStudents,
+      thisMonth: thisMonthEvents.length,
+      featured: featuredEvents.length
+    });
+  };
+
   const featuredEvents = [
     {
       id: 1,
@@ -50,10 +94,26 @@ export default function Index() {
   ];
 
   const stats = [
-    { label: "Active Events", value: "24", icon: Calendar },
-    { label: "Total Students", value: "1,200+", icon: Users },
-    { label: "This Month", value: "8", icon: Clock },
-    { label: "Featured", value: "3", icon: Star },
+    {
+      label: "Active Events",
+      value: realTimeStats.activeEvents.toString(),
+      icon: Calendar
+    },
+    {
+      label: "Total Students",
+      value: realTimeStats.totalStudents > 0 ? `${realTimeStats.totalStudents.toLocaleString()}+` : "0",
+      icon: Users
+    },
+    {
+      label: "This Month",
+      value: realTimeStats.thisMonth.toString(),
+      icon: Clock
+    },
+    {
+      label: "Featured",
+      value: realTimeStats.featured.toString(),
+      icon: Star
+    },
   ];
 
   return (
