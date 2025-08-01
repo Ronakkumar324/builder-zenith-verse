@@ -6,6 +6,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Calendar,
   Users,
   MapPin,
@@ -18,6 +25,10 @@ import {
   BarChart3,
   Star,
   ArrowRight,
+  User,
+  Palette,
+  Shield,
+  HelpCircle,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -154,9 +165,36 @@ export default function Dashboard() {
               <Button variant="ghost" size="sm" className="hover:bg-muted/80">
                 <Bell className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="hover:bg-muted/80">
-                <Settings className="w-5 h-5" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="hover:bg-muted/80">
+                    <Settings className="w-5 h-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile Settings</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Palette className="mr-2 h-4 w-4" />
+                    <span>Appearance</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Bell className="mr-2 h-4 w-4" />
+                    <span>Notifications</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Shield className="mr-2 h-4 w-4" />
+                    <span>Privacy & Security</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <HelpCircle className="mr-2 h-4 w-4" />
+                    <span>Help & Support</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Avatar className="w-8 h-8 ring-2 ring-background shadow-lg">
                 <AvatarImage src={user.avatar} />
                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-medium">
