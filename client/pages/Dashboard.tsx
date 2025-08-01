@@ -205,29 +205,29 @@ export default function Dashboard() {
 
           {user.role === "organizer" && (
             <>
-              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.1s'}}>
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <BarChart3 className="w-6 h-6 text-green-600" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow transition-all duration-300">
+                      <BarChart3 className="w-6 h-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm text-gray-600">Events Organized</p>
-                      <p className="text-2xl font-bold text-gray-900">{organizedEvents.length}</p>
+                      <p className="text-sm text-muted-foreground">Events Organized</p>
+                      <p className="text-2xl font-bold text-foreground">{organizedEvents.length}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.2s'}}>
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <Users className="w-6 h-6 text-purple-600" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow-purple transition-all duration-300">
+                      <Users className="w-6 h-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm text-gray-600">Total Registrations</p>
-                      <p className="text-2xl font-bold text-gray-900">
+                      <p className="text-sm text-muted-foreground">Total Registrations</p>
+                      <p className="text-2xl font-bold text-foreground">
                         {organizedEvents.reduce((sum, event) => sum + event.registrations, 0)}
                       </p>
                     </div>
