@@ -31,11 +31,12 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { eventStorage, type Event } from "@/lib/events";
 
 export default function CreateEvent() {
   const navigate = useNavigate();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [createdEventId, setCreatedEventId] = useState<number | null>(null);
+  const [createdEventId, setCreatedEventId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -173,10 +174,10 @@ export default function CreateEvent() {
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       // Generate unique event ID
-      const newEventId = `evt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const newEventId = eventStorage.generateEventId();
 
       // Create event object
-      const newEvent = {
+      const newEvent: Event = {
         id: newEventId,
         title: formData.title,
         description: formData.description,
@@ -194,10 +195,11 @@ export default function CreateEvent() {
         image: null // For now, we'll use placeholder
       };
 
-      // Save to localStorage
-      const existingEvents = JSON.parse(localStorage.getItem('eventhub_events') || '[]');
-      existingEvents.push(newEvent);
-      localStorage.setItem('eventhub_events', JSON.stringify(existingEvents));
+      // Save event using shared utility
+      const saved = eventStorage.saveEvent(newEvent);
+      if (!saved) {
+        throw new Error('Failed to save event');
+      }
 
       setCreatedEventId(newEventId);
       setShowSuccessModal(true);
