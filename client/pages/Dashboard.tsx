@@ -167,7 +167,11 @@ export default function Dashboard() {
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="hover:bg-muted/80">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hover:bg-muted/80"
+                  >
                     <Settings className="w-5 h-5" />
                   </Button>
                 </DropdownMenuTrigger>
