@@ -201,6 +201,8 @@ export default function CreateEvent() {
         attendees: 0,
         registrations: [],
         image: null, // For now, we'll use placeholder
+        // Keep legacy time field for backward compatibility
+        time: formData.startTime,
       };
 
       // Save event using shared utility
