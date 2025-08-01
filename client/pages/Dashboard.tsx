@@ -422,57 +422,75 @@ export default function Dashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid-cards">
-                  {registeredEvents.map((event, index) => (
-                    <Card
-                      key={event.id}
-                      className="card-modern group hover:scale-105 animate-fade-in"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={event.image}
-                          alt={event.title}
-                          className="w-full h-32 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                        <Badge
-                          className={`absolute top-3 right-3 ${getStatusColor(event.status)} shadow-lg`}
-                        >
-                          {event.status}
-                        </Badge>
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                          {event.title}
-                        </h3>
-                        <div className="space-y-1 text-sm text-muted-foreground mb-3">
-                          <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-2 text-primary" />
-                    {eventStorage.formatDate(event.date)}
+                {registeredEvents.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      No Completed Events Yet
+                    </h3>
+                    <p className="text-gray-600 mb-4">
+                      You haven't completed any events yet. Create some events and mark them as completed to see them here.
+                    </p>
+                    <Link to="/create-event">
+                      <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
+                        <Plus className="w-4 h-4 mr-2" />
+                        Create Your First Event
+                      </Button>
+                    </Link>
                   </div>
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-2 text-primary" />
-                    {event.startTime && event.endTime ?
-                      `${event.startTime} - ${event.endTime}` :
-                      event.time || event.startTime
-                    }
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-primary" />
-                    {event.venue}
-                  </div>
+                ) : (
+                  <div className="grid-cards">
+                    {registeredEvents.map((event, index) => (
+                      <Card
+                        key={event.id}
+                        className="card-modern group hover:scale-105 animate-fade-in"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        <div className="relative overflow-hidden">
+                          <img
+                            src={event.image || "/placeholder.svg"}
+                            alt={event.title}
+                            className="w-full h-32 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                          <Badge
+                            className={`absolute top-3 right-3 ${getStatusColor(event.status)} shadow-lg`}
+                          >
+                            {event.status}
+                          </Badge>
                         </div>
-                        <Link to={`/event-details/${event.id}`}>
-                          <Button className="w-full btn-primary group-hover:shadow-lg">
-                            View Details
-                            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                          </Button>
-                        </Link>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                        <CardContent className="p-4">
+                          <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                            {event.title}
+                          </h3>
+                          <div className="space-y-1 text-sm text-muted-foreground mb-3">
+                            <div className="flex items-center">
+                              <Calendar className="w-4 h-4 mr-2 text-primary" />
+                              {eventStorage.formatDate(event.date)}
+                            </div>
+                            <div className="flex items-center">
+                              <Clock className="w-4 h-4 mr-2 text-primary" />
+                              {event.startTime && event.endTime ?
+                                `${event.startTime} - ${event.endTime}` :
+                                event.time || event.startTime
+                              }
+                            </div>
+                            <div className="flex items-center">
+                              <MapPin className="w-4 h-4 mr-2 text-primary" />
+                              {event.venue}
+                            </div>
+                          </div>
+                          <Link to={`/event-details/${event.id}`}>
+                            <Button className="w-full btn-primary group-hover:shadow-lg">
+                              View Details
+                              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                          </Link>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
