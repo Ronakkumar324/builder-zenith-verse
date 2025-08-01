@@ -168,21 +168,55 @@ export default function CreateEvent() {
 
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      const newEventId = Math.floor(Math.random() * 1000) + 100;
+    try {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Generate unique event ID
+      const newEventId = `evt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+      // Create event object
+      const newEvent = {
+        id: newEventId,
+        title: formData.title,
+        description: formData.description,
+        date: formData.date,
+        time: formData.time,
+        venue: formData.venue,
+        category: formData.category,
+        maxSeats: parseInt(formData.maxSeats),
+        organizer: "Ronak", // In real app, get from auth context
+        organizerId: "user_123",
+        createdAt: new Date().toISOString(),
+        status: "active",
+        attendees: 0,
+        registrations: [],
+        image: null // For now, we'll use placeholder
+      };
+
+      // Save to localStorage
+      const existingEvents = JSON.parse(localStorage.getItem('eventhub_events') || '[]');
+      existingEvents.push(newEvent);
+      localStorage.setItem('eventhub_events', JSON.stringify(existingEvents));
+
       setCreatedEventId(newEventId);
       setShowSuccessModal(true);
-    }, 2000);
+    } catch (error) {
+      console.error('Failed to create event:', error);
+      // Handle error - could show error message
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleModalClose = (action: "dashboard" | "event-details") => {
+  const handleModalClose = (action: "dashboard" | "event-details" | "events") => {
     setShowSuccessModal(false);
     if (action === "dashboard") {
       navigate("/dashboard");
     } else if (action === "event-details" && createdEventId) {
       navigate(`/event-details/${createdEventId}`);
+    } else if (action === "events") {
+      navigate("/events");
     }
   };
 
@@ -544,7 +578,7 @@ export default function CreateEvent() {
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
               <Badge className="bg-indigo-100 text-indigo-800">
-                Event ID: {createdEventId}
+                Event Created
               </Badge>
               <Badge className="bg-green-100 text-green-800">
                 {formData.category}
@@ -553,20 +587,29 @@ export default function CreateEvent() {
             <p className="text-sm text-gray-500">
               Your event is now live and people can start registering!
             </p>
-            <div className="flex space-x-3 pt-4">
+            <div className="flex flex-col space-y-2 pt-4">
               <Button
-                variant="outline"
-                className="flex-1"
-                onClick={() => handleModalClose("dashboard")}
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+                onClick={() => handleModalClose("events")}
               >
-                Go to Dashboard
+                View All Events
               </Button>
-              <Button
-                className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
-                onClick={() => handleModalClose("event-details")}
-              >
-                View Event
-              </Button>
+              <div className="flex space-x-3">
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => handleModalClose("dashboard")}
+                >
+                  Dashboard
+                </Button>
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => handleModalClose("event-details")}
+                >
+                  View Event
+                </Button>
+              </div>
             </div>
           </div>
         </DialogContent>
