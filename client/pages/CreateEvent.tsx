@@ -45,7 +45,8 @@ export default function CreateEvent() {
     title: "",
     description: "",
     date: "",
-    time: "",
+    startTime: "",
+    endTime: "",
     venue: "",
     category: "",
     maxSeats: "",
@@ -91,8 +92,14 @@ export default function CreateEvent() {
       }
     }
 
-    if (!formData.time) {
-      newErrors.time = "Event time is required";
+    if (!formData.startTime) {
+      newErrors.startTime = "Event start time is required";
+    }
+
+    if (!formData.endTime) {
+      newErrors.endTime = "Event end time is required";
+    } else if (formData.startTime && formData.endTime <= formData.startTime) {
+      newErrors.endTime = "End time must be after start time";
     }
 
     if (!formData.venue.trim()) {
@@ -182,7 +189,8 @@ export default function CreateEvent() {
         title: formData.title,
         description: formData.description,
         date: formData.date,
-        time: formData.time,
+        startTime: formData.startTime,
+        endTime: formData.endTime,
         venue: formData.venue,
         category: formData.category,
         maxSeats: parseInt(formData.maxSeats),
@@ -356,52 +364,77 @@ export default function CreateEvent() {
                 )}
               </div>
 
-              {/* Date and Time */}
+              {/* Date */}
+              <div className="space-y-2">
+                <Label htmlFor="date" className="text-gray-700 font-medium">
+                  Event Date *
+                </Label>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                  <Input
+                    id="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) =>
+                      handleInputChange("date", e.target.value)
+                    }
+                    className={`pl-10 h-12 ${errors.date ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
+                  />
+                </div>
+                {errors.date && (
+                  <p className="text-sm text-red-600 flex items-center mt-1">
+                    <AlertCircle className="w-4 h-4 mr-1" />
+                    {errors.date}
+                  </p>
+                )}
+              </div>
+
+              {/* Start and End Time */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="date" className="text-gray-700 font-medium">
-                    Event Date *
+                  <Label htmlFor="startTime" className="text-gray-700 font-medium">
+                    Start Time *
                   </Label>
                   <div className="relative">
-                    <Calendar className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <Clock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                     <Input
-                      id="date"
-                      type="date"
-                      value={formData.date}
+                      id="startTime"
+                      type="time"
+                      value={formData.startTime}
                       onChange={(e) =>
-                        handleInputChange("date", e.target.value)
+                        handleInputChange("startTime", e.target.value)
                       }
-                      className={`pl-10 h-12 ${errors.date ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
+                      className={`pl-10 h-12 ${errors.startTime ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                     />
                   </div>
-                  {errors.date && (
+                  {errors.startTime && (
                     <p className="text-sm text-red-600 flex items-center mt-1">
                       <AlertCircle className="w-4 h-4 mr-1" />
-                      {errors.date}
+                      {errors.startTime}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="time" className="text-gray-700 font-medium">
-                    Event Time *
+                  <Label htmlFor="endTime" className="text-gray-700 font-medium">
+                    End Time *
                   </Label>
                   <div className="relative">
                     <Clock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                     <Input
-                      id="time"
+                      id="endTime"
                       type="time"
-                      value={formData.time}
+                      value={formData.endTime}
                       onChange={(e) =>
-                        handleInputChange("time", e.target.value)
+                        handleInputChange("endTime", e.target.value)
                       }
-                      className={`pl-10 h-12 ${errors.time ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
+                      className={`pl-10 h-12 ${errors.endTime ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                     />
                   </div>
-                  {errors.time && (
+                  {errors.endTime && (
                     <p className="text-sm text-red-600 flex items-center mt-1">
                       <AlertCircle className="w-4 h-4 mr-1" />
-                      {errors.time}
+                      {errors.endTime}
                     </p>
                   )}
                 </div>
