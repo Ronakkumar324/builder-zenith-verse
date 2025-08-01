@@ -162,9 +162,46 @@ export default function Dashboard() {
             </nav>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
-              <Button variant="ghost" size="sm" className="hover:bg-muted/80">
-                <Bell className="w-5 h-5" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="hover:bg-muted/80 relative">
+                    <Bell className="w-5 h-5" />
+                    <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full flex items-center justify-center">
+                      <span className="text-xs text-white font-bold">2</span>
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-80">
+                  <div className="p-4 border-b">
+                    <h3 className="font-semibold text-lg">Notifications</h3>
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    <DropdownMenuItem className="p-4 hover:bg-muted cursor-pointer">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">New event registration</p>
+                          <p className="text-xs text-muted-foreground">Someone registered for your Tech Summit event</p>
+                          <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
+                        </div>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="p-4 hover:bg-muted cursor-pointer">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">Event reminder</p>
+                          <p className="text-xs text-muted-foreground">Your Cultural Festival is tomorrow</p>
+                          <p className="text-xs text-muted-foreground mt-1">1 day ago</p>
+                        </div>
+                      </div>
+                    </DropdownMenuItem>
+                  </div>
+                  <div className="p-2 border-t">
+                    <Button variant="ghost" className="w-full text-sm">View all notifications</Button>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -199,12 +236,54 @@ export default function Dashboard() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Avatar className="w-8 h-8 ring-2 ring-background shadow-lg">
-                <AvatarImage src={user.avatar} />
-                <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-medium">
-                  {user.name.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
+                    <Avatar className="w-8 h-8 ring-2 ring-background shadow-lg cursor-pointer hover:ring-primary transition-all">
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-medium">
+                        {user.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64">
+                  <div className="p-4 border-b">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="w-12 h-12">
+                        <AvatarImage src={user.avatar} />
+                        <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+                          {user.name.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <p className="font-semibold">{user.name}</p>
+                        <p className="text-sm text-muted-foreground">{user.email}</p>
+                        <Badge className="mt-1 bg-indigo-100 text-indigo-800 text-xs">
+                          {user.role === "organizer" ? "Event Organizer" : "Participant"}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>View Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Account Settings</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Bell className="mr-2 h-4 w-4" />
+                    <span>Notifications</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Sign Out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
@@ -216,7 +295,7 @@ export default function Dashboard() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Welcome, {user.name}! 👋
+                Welcome, {user.name}! ���
               </h1>
               <p className="text-gray-600 flex items-center">
                 <UserCheck className="w-4 h-4 mr-2" />
