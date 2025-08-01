@@ -102,6 +102,11 @@ export default function Events() {
     return Math.round((event.attendees / event.maxSeats) * 100);
   };
 
+  const isUserRegistered = (event: Event) => {
+    const currentUserEmail = "ronak@college.edu"; // In real app, get from auth context
+    return event.registrations.includes(currentUserEmail);
+  };
+
   const handleRegister = async (eventId: string) => {
     // Prevent multiple registrations for the same event
     if (registeringEvents.has(eventId)) return;
@@ -405,7 +410,15 @@ export default function Events() {
                   </div>
 
                   <div className="flex space-x-2">
-                    {getAvailableSeats(event) > 0 ? (
+                    {isUserRegistered(event) ? (
+                      <Button
+                        disabled
+                        className="flex-1 bg-green-600 text-white cursor-default"
+                      >
+                        <UserCheck className="w-4 h-4 mr-2" />
+                        Registered
+                      </Button>
+                    ) : getAvailableSeats(event) > 0 ? (
                       <Button
                         onClick={() => handleRegister(event.id)}
                         disabled={registeringEvents.has(event.id)}
