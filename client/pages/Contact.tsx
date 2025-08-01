@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Calendar, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
+import {
+  Calendar,
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
   MessageCircle,
-  ArrowLeft 
+  ArrowLeft,
 } from "lucide-react";
 
 export default function Contact() {
@@ -27,22 +27,37 @@ export default function Contact() {
               </span>
             </Link>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium">
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
                 Home
               </Link>
-              <Link to="/events" className="text-gray-700 hover:text-indigo-600 font-medium">
+              <Link
+                to="/events"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
                 Events
               </Link>
-              <Link to="/dashboard" className="text-gray-700 hover:text-indigo-600 font-medium">
+              <Link
+                to="/dashboard"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
                 Dashboard
               </Link>
-              <Link to="/contact" className="text-indigo-600 font-medium border-b-2 border-indigo-600">
+              <Link
+                to="/contact"
+                className="text-indigo-600 font-medium border-b-2 border-indigo-600"
+              >
                 Contact
               </Link>
             </nav>
             <div className="flex items-center space-x-4">
               <Link to="/login">
-                <Button variant="ghost" className="text-gray-700 hover:text-indigo-600">
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 hover:text-indigo-600"
+                >
                   Sign In
                 </Button>
               </Link>
@@ -71,11 +86,10 @@ export default function Contact() {
 
         {/* Page Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Contact Us
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Get in touch with our team for support, questions, or feedback about EventHub
+            Get in touch with our team for support, questions, or feedback about
+            EventHub
           </p>
         </div>
 
@@ -98,10 +112,15 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
                     <p className="text-gray-600">adishinde62020@gmail.com</p>
-                    <Button 
-                      variant="link" 
+                    <Button
+                      variant="link"
                       className="p-0 h-auto text-indigo-600"
-                      onClick={() => window.open('mailto:adishinde62020@gmail.com?subject=EventHub Support', '_blank')}
+                      onClick={() =>
+                        window.open(
+                          "mailto:adishinde62020@gmail.com?subject=EventHub Support",
+                          "_blank",
+                        )
+                      }
                     >
                       Send Email
                     </Button>
@@ -116,10 +135,10 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-gray-900">Phone</h3>
                     <p className="text-gray-600">+91 8830899840</p>
-                    <Button 
-                      variant="link" 
+                    <Button
+                      variant="link"
                       className="p-0 h-auto text-green-600"
-                      onClick={() => window.open('tel:+918830899840', '_blank')}
+                      onClick={() => window.open("tel:+918830899840", "_blank")}
                     >
                       Call Now
                     </Button>
@@ -132,9 +151,15 @@ export default function Contact() {
                     <Clock className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Office Hours</h3>
-                    <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
+                    <h3 className="font-semibold text-gray-900">
+                      Office Hours
+                    </h3>
+                    <p className="text-gray-600">
+                      Monday - Friday: 9:00 AM - 6:00 PM
+                    </p>
+                    <p className="text-gray-600">
+                      Saturday: 10:00 AM - 4:00 PM
+                    </p>
                   </div>
                 </div>
 
@@ -164,7 +189,10 @@ export default function Contact() {
               <CardContent>
                 <form className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Your Name
                     </label>
                     <input
@@ -176,7 +204,10 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Your Email
                     </label>
                     <input
@@ -188,7 +219,10 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Subject
                     </label>
                     <input
@@ -200,7 +234,10 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Message
                     </label>
                     <textarea
@@ -211,12 +248,14 @@ export default function Contact() {
                     />
                   </div>
 
-                  <Button 
+                  <Button
                     type="button"
                     className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 h-12"
                     onClick={() => {
                       // This would normally submit the form, but for now we'll just show an alert
-                      alert("Thank you for your message! We'll get back to you soon via email or phone.");
+                      alert(
+                        "Thank you for your message! We'll get back to you soon via email or phone.",
+                      );
                     }}
                   >
                     Send Message
@@ -239,22 +278,42 @@ export default function Contact() {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">How do I create an event?</h3>
-                    <p className="text-gray-600">Navigate to the Dashboard and click "Create Event" to start organizing your event.</p>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      How do I create an event?
+                    </h3>
+                    <p className="text-gray-600">
+                      Navigate to the Dashboard and click "Create Event" to
+                      start organizing your event.
+                    </p>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">How do I register for events?</h3>
-                    <p className="text-gray-600">Browse events and click "Register" on any event you're interested in attending.</p>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      How do I register for events?
+                    </h3>
+                    <p className="text-gray-600">
+                      Browse events and click "Register" on any event you're
+                      interested in attending.
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Is EventHub free to use?</h3>
-                    <p className="text-gray-600">Yes! EventHub is completely free for all college students and organizers.</p>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      Is EventHub free to use?
+                    </h3>
+                    <p className="text-gray-600">
+                      Yes! EventHub is completely free for all college students
+                      and organizers.
+                    </p>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">How do I get support?</h3>
-                    <p className="text-gray-600">Contact us via email or phone using the information provided above.</p>
+                    <h3 className="font-semibold text-gray-900 mb-2">
+                      How do I get support?
+                    </h3>
+                    <p className="text-gray-600">
+                      Contact us via email or phone using the information
+                      provided above.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -275,29 +334,58 @@ export default function Contact() {
                 <span className="text-xl font-bold">EventHub</span>
               </div>
               <p className="text-gray-400">
-                The ultimate platform for college event management and discovery.
+                The ultimate platform for college event management and
+                discovery.
               </p>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/events" className="hover:text-white">Browse Events</Link></li>
-                <li><Link to="/create-event" className="hover:text-white">Create Event</Link></li>
-                <li><Link to="/dashboard" className="hover:text-white">Dashboard</Link></li>
+                <li>
+                  <Link to="/events" className="hover:text-white">
+                    Browse Events
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/create-event" className="hover:text-white">
+                    Create Event
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard" className="hover:text-white">
+                    Dashboard
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Account</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/login" className="hover:text-white">Sign In</Link></li>
-                <li><Link to="/signup" className="hover:text-white">Sign Up</Link></li>
+                <li>
+                  <Link to="/login" className="hover:text-white">
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="hover:text-white">
+                    Sign Up
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/contact" className="hover:text-white">Contact Us</Link></li>
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
+                <li>
+                  <Link to="/contact" className="hover:text-white">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Help Center
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

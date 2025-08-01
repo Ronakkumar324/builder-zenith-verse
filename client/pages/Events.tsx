@@ -502,22 +502,43 @@ export default function Events() {
                 <span className="text-xl font-bold">EventHub</span>
               </div>
               <p className="text-gray-400">
-                The ultimate platform for college event management and discovery.
+                The ultimate platform for college event management and
+                discovery.
               </p>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/events" className="hover:text-white">Browse Events</Link></li>
-                <li><Link to="/create-event" className="hover:text-white">Create Event</Link></li>
-                <li><Link to="/dashboard" className="hover:text-white">Dashboard</Link></li>
+                <li>
+                  <Link to="/events" className="hover:text-white">
+                    Browse Events
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/create-event" className="hover:text-white">
+                    Create Event
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard" className="hover:text-white">
+                    Dashboard
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Account</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/login" className="hover:text-white">Sign In</Link></li>
-                <li><Link to="/signup" className="hover:text-white">Sign Up</Link></li>
+                <li>
+                  <Link to="/login" className="hover:text-white">
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="hover:text-white">
+                    Sign Up
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
@@ -531,7 +552,11 @@ export default function Events() {
                     Contact Us
                   </a>
                 </li>
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Help Center
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
