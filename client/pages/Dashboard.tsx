@@ -304,7 +304,7 @@ export default function Dashboard() {
                   : "Event Participant"}
               </p>
             </div>
-            <div className="mt-4 sm:mt-0 flex items-center space-x-3">
+            <div className="mt-4 sm:mt-0">
               {user.role === "organizer" && (
                 <Link to="/create-event">
                   <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
@@ -313,14 +313,6 @@ export default function Dashboard() {
                   </Button>
                 </Link>
               )}
-              <Button
-                variant="outline"
-                onClick={handleLogout}
-                className="border-red-200 text-red-600 hover:bg-red-50"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
-              </Button>
             </div>
           </div>
         </div>
