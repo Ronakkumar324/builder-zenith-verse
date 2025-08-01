@@ -58,6 +58,8 @@ export default function Events() {
     try {
       const activeEvents = eventStorage.getActiveEvents();
       setEvents(activeEvents);
+      // Clear any existing filters to show updated data
+      filterEvents();
     } catch (error) {
       console.error("Failed to load events:", error);
       setEvents([]);
