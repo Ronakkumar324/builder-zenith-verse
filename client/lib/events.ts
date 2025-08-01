@@ -10,13 +10,13 @@ export interface Event {
   organizer: string;
   organizerId: string;
   createdAt: string;
-  status: 'active' | 'cancelled' | 'completed';
+  status: "active" | "cancelled" | "completed";
   attendees: number;
   registrations: string[];
   image?: string | null;
 }
 
-const STORAGE_KEY = 'eventhub_events';
+const STORAGE_KEY = "eventhub_events";
 
 export const eventStorage = {
   // Get all events
@@ -25,7 +25,7 @@ export const eventStorage = {
       const events = localStorage.getItem(STORAGE_KEY);
       return events ? JSON.parse(events) : [];
     } catch (error) {
-      console.error('Failed to get events:', error);
+      console.error("Failed to get events:", error);
       return [];
     }
   },
@@ -34,18 +34,18 @@ export const eventStorage = {
   saveEvent(event: Event): boolean {
     try {
       const events = this.getAllEvents();
-      const existingIndex = events.findIndex(e => e.id === event.id);
-      
+      const existingIndex = events.findIndex((e) => e.id === event.id);
+
       if (existingIndex !== -1) {
         events[existingIndex] = event;
       } else {
         events.push(event);
       }
-      
+
       localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
       return true;
     } catch (error) {
-      console.error('Failed to save event:', error);
+      console.error("Failed to save event:", error);
       return false;
     }
   },
@@ -53,7 +53,7 @@ export const eventStorage = {
   // Get event by ID
   getEventById(id: string): Event | null {
     const events = this.getAllEvents();
-    return events.find(event => event.id === id) || null;
+    return events.find((event) => event.id === id) || null;
   },
 
   // Get active/upcoming events only
@@ -65,16 +65,15 @@ export const eventStorage = {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    return events.filter(event =>
-      event.status === 'active' &&
-      new Date(event.date) >= today
+    return events.filter(
+      (event) => event.status === "active" && new Date(event.date) >= today,
     );
   },
 
   // Get events by organizer
   getEventsByOrganizer(organizerId: string): Event[] {
     const events = this.getAllEvents();
-    return events.filter(event => event.organizerId === organizerId);
+    return events.filter((event) => event.organizerId === organizerId);
   },
 
   // Register for an event
@@ -82,24 +81,24 @@ export const eventStorage = {
     try {
       const event = this.getEventById(eventId);
       if (!event) return false;
-      
+
       // Check if already registered
       if (event.registrations.includes(userEmail)) {
         return false; // Already registered
       }
-      
+
       // Check capacity
       if (event.attendees >= event.maxSeats) {
         return false; // Event full
       }
-      
+
       // Add registration
       event.registrations.push(userEmail);
       event.attendees += 1;
-      
+
       return this.saveEvent(event);
     } catch (error) {
-      console.error('Failed to register for event:', error);
+      console.error("Failed to register for event:", error);
       return false;
     }
   },
@@ -114,7 +113,7 @@ export const eventStorage = {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
       weekday: "short",
-      year: "numeric", 
+      year: "numeric",
       month: "short",
       day: "numeric",
     });
@@ -124,11 +123,11 @@ export const eventStorage = {
   deleteEvent(eventId: string): boolean {
     try {
       const events = this.getAllEvents();
-      const filteredEvents = events.filter(event => event.id !== eventId);
+      const filteredEvents = events.filter((event) => event.id !== eventId);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredEvents));
       return true;
     } catch (error) {
-      console.error('Failed to delete event:', error);
+      console.error("Failed to delete event:", error);
       return false;
     }
   },
@@ -151,8 +150,9 @@ export const eventStorage = {
       {
         id: this.generateEventId(),
         title: "Tech Innovation Summit 2024",
-        description: "Join industry leaders for a day of cutting-edge technology presentations, networking, and innovation showcase. Discover the latest trends in AI, blockchain, and software development.",
-        date: tomorrow.toISOString().split('T')[0],
+        description:
+          "Join industry leaders for a day of cutting-edge technology presentations, networking, and innovation showcase. Discover the latest trends in AI, blockchain, and software development.",
+        date: tomorrow.toISOString().split("T")[0],
         time: "10:00",
         venue: "Main Auditorium, Tech Campus",
         category: "Technology",
@@ -163,13 +163,14 @@ export const eventStorage = {
         status: "active",
         attendees: 45,
         registrations: [],
-        image: null
+        image: null,
       },
       {
         id: this.generateEventId(),
         title: "Annual Cultural Festival",
-        description: "Experience a vibrant celebration of diverse cultures with music, dance, food, and art from around the world. A perfect event for the entire community to come together.",
-        date: nextWeek.toISOString().split('T')[0],
+        description:
+          "Experience a vibrant celebration of diverse cultures with music, dance, food, and art from around the world. A perfect event for the entire community to come together.",
+        date: nextWeek.toISOString().split("T")[0],
         time: "18:00",
         venue: "College Grounds",
         category: "Cultural",
@@ -180,13 +181,14 @@ export const eventStorage = {
         status: "active",
         attendees: 234,
         registrations: [],
-        image: null
+        image: null,
       },
       {
         id: this.generateEventId(),
         title: "Career Development Workshop",
-        description: "Learn essential career skills including resume writing, interview techniques, and professional networking. Perfect for students and recent graduates looking to advance their careers.",
-        date: nextMonth.toISOString().split('T')[0],
+        description:
+          "Learn essential career skills including resume writing, interview techniques, and professional networking. Perfect for students and recent graduates looking to advance their careers.",
+        date: nextMonth.toISOString().split("T")[0],
         time: "14:00",
         venue: "Conference Hall B",
         category: "Career",
@@ -197,11 +199,11 @@ export const eventStorage = {
         status: "active",
         attendees: 12,
         registrations: [],
-        image: null
-      }
+        image: null,
+      },
     ];
 
     // Save sample events
     localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleEvents));
-  }
+  },
 };

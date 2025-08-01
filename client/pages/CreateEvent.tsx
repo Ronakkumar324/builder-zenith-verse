@@ -171,7 +171,7 @@ export default function CreateEvent() {
 
     try {
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Generate unique event ID
       const newEventId = eventStorage.generateEventId();
@@ -192,26 +192,28 @@ export default function CreateEvent() {
         status: "active",
         attendees: 0,
         registrations: [],
-        image: null // For now, we'll use placeholder
+        image: null, // For now, we'll use placeholder
       };
 
       // Save event using shared utility
       const saved = eventStorage.saveEvent(newEvent);
       if (!saved) {
-        throw new Error('Failed to save event');
+        throw new Error("Failed to save event");
       }
 
       setCreatedEventId(newEventId);
       setShowSuccessModal(true);
     } catch (error) {
-      console.error('Failed to create event:', error);
+      console.error("Failed to create event:", error);
       // Handle error - could show error message
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleModalClose = (action: "dashboard" | "event-details" | "events") => {
+  const handleModalClose = (
+    action: "dashboard" | "event-details" | "events",
+  ) => {
     setShowSuccessModal(false);
     if (action === "dashboard") {
       navigate("/dashboard");

@@ -25,8 +25,6 @@ import {
   LogIn,
 } from "lucide-react";
 
-
-
 export default function Events() {
   const [events, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
@@ -36,7 +34,7 @@ export default function Events() {
 
   const categories = [
     "Technology",
-    "Cultural", 
+    "Cultural",
     "Career",
     "Education",
     "Sports",
@@ -60,7 +58,7 @@ export default function Events() {
       const activeEvents = eventStorage.getActiveEvents();
       setEvents(activeEvents);
     } catch (error) {
-      console.error('Failed to load events:', error);
+      console.error("Failed to load events:", error);
       setEvents([]);
     } finally {
       setIsLoading(false);
@@ -72,17 +70,20 @@ export default function Events() {
 
     // Filter by search term
     if (searchTerm) {
-      filtered = filtered.filter(event =>
-        event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.venue.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.organizer.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.venue.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          event.organizer.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     }
 
     // Filter by category
     if (selectedCategory !== "all") {
-      filtered = filtered.filter(event => event.category === selectedCategory);
+      filtered = filtered.filter(
+        (event) => event.category === selectedCategory,
+      );
     }
 
     setFilteredEvents(filtered);
@@ -176,7 +177,8 @@ export default function Events() {
             Discover Amazing Events
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Browse through our collection of exciting events and find the perfect ones for you
+            Browse through our collection of exciting events and find the
+            perfect ones for you
           </p>
         </div>
 
@@ -198,7 +200,10 @@ export default function Events() {
 
               {/* Category Filter */}
               <div className="lg:w-64">
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <Select
+                  value={selectedCategory}
+                  onValueChange={setSelectedCategory}
+                >
                   <SelectTrigger className="h-12 border-gray-200 focus:border-indigo-500 focus:ring-indigo-500">
                     <Filter className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="All Categories" />
@@ -219,9 +224,7 @@ export default function Events() {
             <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
               <div>
                 Showing {filteredEvents.length} of {events.length} events
-                {searchTerm && (
-                  <span> for "{searchTerm}"</span>
-                )}
+                {searchTerm && <span> for "{searchTerm}"</span>}
                 {selectedCategory !== "all" && (
                   <span> in {selectedCategory}</span>
                 )}
@@ -249,7 +252,9 @@ export default function Events() {
             <CardContent className="p-12 text-center">
               <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {events.length === 0 ? "No Events Available" : "No Events Found"}
+                {events.length === 0
+                  ? "No Events Available"
+                  : "No Events Found"}
               </h3>
               <p className="text-gray-600 mb-6">
                 {events.length === 0
@@ -285,13 +290,14 @@ export default function Events() {
                       {event.category}
                     </Badge>
                   </div>
-                  {getAvailableSeats(event) <= 10 && getAvailableSeats(event) > 0 && (
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-red-500 text-white font-medium">
-                        Limited Seats
-                      </Badge>
-                    </div>
-                  )}
+                  {getAvailableSeats(event) <= 10 &&
+                    getAvailableSeats(event) > 0 && (
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-red-500 text-white font-medium">
+                          Limited Seats
+                        </Badge>
+                      </div>
+                    )}
                   {getAvailableSeats(event) === 0 && (
                     <div className="absolute top-4 left-4">
                       <Badge className="bg-gray-500 text-white font-medium">
@@ -340,9 +346,11 @@ export default function Events() {
                       <span>{event.maxSeats} capacity</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
+                      <div
                         className="bg-gradient-to-r from-indigo-500 to-purple-600 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${getRegistrationPercentage(event)}%` }}
+                        style={{
+                          width: `${getRegistrationPercentage(event)}%`,
+                        }}
                       />
                     </div>
                   </div>
@@ -388,7 +396,8 @@ export default function Events() {
                   Want to organize your own event?
                 </h3>
                 <p className="text-indigo-100 mb-6">
-                  Join our community of event organizers and create memorable experiences
+                  Join our community of event organizers and create memorable
+                  experiences
                 </p>
                 <Link to="/create-event">
                   <Button
