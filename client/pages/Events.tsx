@@ -101,9 +101,40 @@ export default function Events() {
     return Math.round((event.attendees / event.maxSeats) * 100);
   };
 
-  const handleRegister = (eventId: string) => {
-    // For now, just show a login prompt - in a real app this would handle registration
-    alert("Please sign in to register for events!");
+  const handleRegister = async (eventId: string) => {
+    try {
+      // In a real app, you'd get this from auth context
+      const currentUser = {
+        email: "ronak@college.edu",
+        name: "Ronak"
+      };
+
+      // Use the event storage registration method
+      const success = eventStorage.registerForEvent(eventId, currentUser.email);
+
+      if (success) {
+        // Show success message
+        alert(`Successfully registered for the event! A confirmation has been sent to ${currentUser.email}`);
+
+        // Reload events to show updated registration count
+        loadEvents();
+      } else {
+        // Handle registration failure
+        const event = eventStorage.getEventById(eventId);
+        if (!event) {
+          alert("Event not found!");
+        } else if (event.registrations.includes(currentUser.email)) {
+          alert("You are already registered for this event!");
+        } else if (event.attendees >= event.maxSeats) {
+          alert("Sorry, this event is fully booked!");
+        } else {
+          alert("Registration failed. Please try again.");
+        }
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Registration failed. Please try again.");
+    }
   };
 
   if (isLoading) {
