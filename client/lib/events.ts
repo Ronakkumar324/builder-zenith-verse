@@ -3,7 +3,8 @@ export interface Event {
   title: string;
   description: string;
   date: string;
-  time: string;
+  startTime: string;
+  endTime: string;
   venue: string;
   category: string;
   maxSeats: number;
@@ -14,6 +15,8 @@ export interface Event {
   attendees: number;
   registrations: string[];
   image?: string | null;
+  // Legacy field for backward compatibility
+  time?: string;
 }
 
 const STORAGE_KEY = "eventhub_events";
@@ -153,7 +156,8 @@ export const eventStorage = {
         description:
           "Join industry leaders for a day of cutting-edge technology presentations, networking, and innovation showcase. Discover the latest trends in AI, blockchain, and software development.",
         date: tomorrow.toISOString().split("T")[0],
-        time: "10:00",
+        startTime: "10:00",
+        endTime: "16:00",
         venue: "Main Auditorium, Tech Campus",
         category: "Technology",
         maxSeats: 150,
@@ -171,7 +175,8 @@ export const eventStorage = {
         description:
           "Experience a vibrant celebration of diverse cultures with music, dance, food, and art from around the world. A perfect event for the entire community to come together.",
         date: nextWeek.toISOString().split("T")[0],
-        time: "18:00",
+        startTime: "18:00",
+        endTime: "22:00",
         venue: "College Grounds",
         category: "Cultural",
         maxSeats: 500,
@@ -189,7 +194,8 @@ export const eventStorage = {
         description:
           "Learn essential career skills including resume writing, interview techniques, and professional networking. Perfect for students and recent graduates looking to advance their careers.",
         date: nextMonth.toISOString().split("T")[0],
-        time: "14:00",
+        startTime: "14:00",
+        endTime: "17:00",
         venue: "Conference Hall B",
         category: "Career",
         maxSeats: 80,
