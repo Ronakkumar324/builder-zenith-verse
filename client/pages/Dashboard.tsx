@@ -55,14 +55,15 @@ export default function Dashboard() {
     const allEvents = eventStorage.getAllEvents();
 
     // For "My Events" - show only completed events created by the current user
-    const userCompletedEvents = allEvents.filter(event =>
-      event.organizerId === "user_123" && // Current user's ID
-      event.status === "completed"
+    const userCompletedEvents = allEvents.filter(
+      (event) =>
+        event.organizerId === "user_123" && // Current user's ID
+        event.status === "completed",
     );
 
     // For "Organized Events" - show all events created by the current user
-    const userOrganizedEvents = allEvents.filter(event =>
-      event.organizerId === "user_123" // Current user's ID
+    const userOrganizedEvents = allEvents.filter(
+      (event) => event.organizerId === "user_123", // Current user's ID
     );
 
     setRegisteredEvents(userCompletedEvents);
@@ -128,7 +129,11 @@ export default function Dashboard() {
               <ThemeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="hover:bg-muted/80 relative">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hover:bg-muted/80 relative"
+                  >
                     <Bell className="w-5 h-5" />
                     <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full flex items-center justify-center">
                       <span className="text-xs text-white font-bold">2</span>
@@ -144,9 +149,15 @@ export default function Dashboard() {
                       <div className="flex items-start space-x-3">
                         <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                         <div className="flex-1">
-                          <p className="text-sm font-medium">New event registration</p>
-                          <p className="text-xs text-muted-foreground">Someone registered for your Tech Summit event</p>
-                          <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
+                          <p className="text-sm font-medium">
+                            New event registration
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            Someone registered for your Tech Summit event
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            2 hours ago
+                          </p>
                         </div>
                       </div>
                     </DropdownMenuItem>
@@ -155,14 +166,20 @@ export default function Dashboard() {
                         <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                         <div className="flex-1">
                           <p className="text-sm font-medium">Event reminder</p>
-                          <p className="text-xs text-muted-foreground">Your Cultural Festival is tomorrow</p>
-                          <p className="text-xs text-muted-foreground mt-1">1 day ago</p>
+                          <p className="text-xs text-muted-foreground">
+                            Your Cultural Festival is tomorrow
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            1 day ago
+                          </p>
                         </div>
                       </div>
                     </DropdownMenuItem>
                   </div>
                   <div className="p-2 border-t">
-                    <Button variant="ghost" className="w-full text-sm">View all notifications</Button>
+                    <Button variant="ghost" className="w-full text-sm">
+                      View all notifications
+                    </Button>
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -222,9 +239,13 @@ export default function Dashboard() {
                       </Avatar>
                       <div className="flex-1">
                         <p className="font-semibold">{user.name}</p>
-                        <p className="text-sm text-muted-foreground">{user.email}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {user.email}
+                        </p>
                         <Badge className="mt-1 bg-indigo-100 text-indigo-800 text-xs">
-                          {user.role === "organizer" ? "Event Organizer" : "Participant"}
+                          {user.role === "organizer"
+                            ? "Event Organizer"
+                            : "Participant"}
                         </Badge>
                       </div>
                     </div>
@@ -242,7 +263,10 @@ export default function Dashboard() {
                     <span>Notifications</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-red-600"
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Sign Out</span>
                   </DropdownMenuItem>
@@ -429,7 +453,8 @@ export default function Dashboard() {
                       No Completed Events Yet
                     </h3>
                     <p className="text-gray-600 mb-4">
-                      You haven't completed any events yet. Create some events and mark them as completed to see them here.
+                      You haven't completed any events yet. Create some events
+                      and mark them as completed to see them here.
                     </p>
                     <Link to="/create-event">
                       <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
@@ -470,10 +495,9 @@ export default function Dashboard() {
                             </div>
                             <div className="flex items-center">
                               <Clock className="w-4 h-4 mr-2 text-primary" />
-                              {event.startTime && event.endTime ?
-                                `${event.startTime} - ${event.endTime}` :
-                                event.time || event.startTime
-                              }
+                              {event.startTime && event.endTime
+                                ? `${event.startTime} - ${event.endTime}`
+                                : event.time || event.startTime}
                             </div>
                             <div className="flex items-center">
                               <MapPin className="w-4 h-4 mr-2 text-primary" />
@@ -527,20 +551,19 @@ export default function Dashboard() {
                           </h3>
                           <div className="space-y-1 text-sm text-gray-600 mb-3">
                             <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-2" />
-                            {eventStorage.formatDate(event.date)}
-                          </div>
-                          <div className="flex items-center">
-                            <Clock className="w-4 h-4 mr-2" />
-                            {event.startTime && event.endTime ?
-                              `${event.startTime} - ${event.endTime}` :
-                              event.time || event.startTime
-                            }
-                          </div>
-                          <div className="flex items-center">
-                            <Users className="w-4 h-4 mr-2" />
-                            {event.attendees}/{event.maxSeats} registered
-                          </div>
+                              <Calendar className="w-4 h-4 mr-2" />
+                              {eventStorage.formatDate(event.date)}
+                            </div>
+                            <div className="flex items-center">
+                              <Clock className="w-4 h-4 mr-2" />
+                              {event.startTime && event.endTime
+                                ? `${event.startTime} - ${event.endTime}`
+                                : event.time || event.startTime}
+                            </div>
+                            <div className="flex items-center">
+                              <Users className="w-4 h-4 mr-2" />
+                              {event.attendees}/{event.maxSeats} registered
+                            </div>
                           </div>
                           <div className="flex space-x-2">
                             <Button

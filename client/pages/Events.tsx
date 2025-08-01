@@ -31,7 +31,9 @@ export default function Events() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isLoading, setIsLoading] = useState(true);
-  const [registeringEvents, setRegisteringEvents] = useState<Set<string>>(new Set());
+  const [registeringEvents, setRegisteringEvents] = useState<Set<string>>(
+    new Set(),
+  );
 
   const categories = [
     "Technology",
@@ -111,16 +113,16 @@ export default function Events() {
     // Prevent multiple registrations for the same event
     if (registeringEvents.has(eventId)) return;
 
-    setRegisteringEvents(prev => new Set(prev).add(eventId));
+    setRegisteringEvents((prev) => new Set(prev).add(eventId));
 
     try {
       // Simulate API delay for better UX
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // In a real app, you'd get this from auth context
       const currentUser = {
         email: "ronak@college.edu",
-        name: "Ronak"
+        name: "Ronak",
       };
 
       // Use the event storage registration method
@@ -128,7 +130,9 @@ export default function Events() {
 
       if (success) {
         // Show success message
-        alert(`✅ Successfully registered for the event! A confirmation has been sent to ${currentUser.email}`);
+        alert(
+          `✅ Successfully registered for the event! A confirmation has been sent to ${currentUser.email}`,
+        );
 
         // Reload events to show updated registration count
         const updatedEvents = eventStorage.getActiveEvents();
@@ -150,7 +154,7 @@ export default function Events() {
       console.error("Registration error:", error);
       alert("❌ Registration failed. Please try again.");
     } finally {
-      setRegisteringEvents(prev => {
+      setRegisteringEvents((prev) => {
         const newSet = new Set(prev);
         newSet.delete(eventId);
         return newSet;
@@ -375,10 +379,9 @@ export default function Events() {
                     </div>
                     <div className="flex items-center">
                       <Clock className="w-4 h-4 mr-2 text-indigo-500" />
-                      {event.startTime && event.endTime ?
-                        `${event.startTime} - ${event.endTime}` :
-                        event.time || event.startTime
-                      }
+                      {event.startTime && event.endTime
+                        ? `${event.startTime} - ${event.endTime}`
+                        : event.time || event.startTime}
                     </div>
                     <div className="flex items-center">
                       <MapPin className="w-4 h-4 mr-2 text-indigo-500" />

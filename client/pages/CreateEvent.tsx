@@ -377,9 +377,7 @@ export default function CreateEvent() {
                     id="date"
                     type="date"
                     value={formData.date}
-                    onChange={(e) =>
-                      handleInputChange("date", e.target.value)
-                    }
+                    onChange={(e) => handleInputChange("date", e.target.value)}
                     className={`pl-10 h-12 ${errors.date ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                   />
                 </div>
@@ -394,7 +392,10 @@ export default function CreateEvent() {
               {/* Start and End Time */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="startTime" className="text-gray-700 font-medium">
+                  <Label
+                    htmlFor="startTime"
+                    className="text-gray-700 font-medium"
+                  >
                     Start Time *
                   </Label>
                   <div className="relative">
@@ -418,7 +419,10 @@ export default function CreateEvent() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="endTime" className="text-gray-700 font-medium">
+                  <Label
+                    htmlFor="endTime"
+                    className="text-gray-700 font-medium"
+                  >
                     End Time *
                   </Label>
                   <div className="relative">

@@ -2,7 +2,15 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Users, MapPin, Clock, Star, ArrowRight, Plus } from "lucide-react";
+import {
+  Calendar,
+  Users,
+  MapPin,
+  Clock,
+  Star,
+  ArrowRight,
+  Plus,
+} from "lucide-react";
 
 export default function Index() {
   const featuredEvents = [
@@ -15,7 +23,7 @@ export default function Index() {
       attendees: 150,
       category: "Technology",
       image: "/placeholder.svg",
-      featured: true
+      featured: true,
     },
     {
       id: 2,
@@ -26,7 +34,7 @@ export default function Index() {
       attendees: 500,
       category: "Cultural",
       image: "/placeholder.svg",
-      featured: false
+      featured: false,
     },
     {
       id: 3,
@@ -37,15 +45,15 @@ export default function Index() {
       attendees: 300,
       category: "Career",
       image: "/placeholder.svg",
-      featured: false
-    }
+      featured: false,
+    },
   ];
 
   const stats = [
     { label: "Active Events", value: "24", icon: Calendar },
     { label: "Total Students", value: "1,200+", icon: Users },
     { label: "This Month", value: "8", icon: Clock },
-    { label: "Featured", value: "3", icon: Star }
+    { label: "Featured", value: "3", icon: Star },
   ];
 
   return (
@@ -63,13 +71,31 @@ export default function Index() {
               </span>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium">Home</Link>
-              <Link to="/events" className="text-gray-700 hover:text-indigo-600 font-medium">Events</Link>
-              <Link to="/dashboard" className="text-gray-700 hover:text-indigo-600 font-medium">Dashboard</Link>
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                to="/events"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Events
+              </Link>
+              <Link
+                to="/dashboard"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Dashboard
+              </Link>
             </nav>
             <div className="flex items-center space-x-4">
               <Link to="/login">
-                <Button variant="ghost" className="text-gray-700 hover:text-indigo-600">
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 hover:text-indigo-600"
+                >
                   Sign In
                 </Button>
               </Link>
@@ -94,17 +120,25 @@ export default function Index() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Join, create, and manage college events seamlessly. Connect with your community and never miss out on exciting opportunities.
+              Join, create, and manage college events seamlessly. Connect with
+              your community and never miss out on exciting opportunities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/create-event">
-                <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-lg px-8">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-lg px-8"
+                >
                   <Plus className="w-5 h-5 mr-2" />
                   Create Event
                 </Button>
               </Link>
               <Link to="/events">
-                <Button size="lg" variant="outline" className="text-lg px-8 border-indigo-200 hover:bg-indigo-50">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 border-indigo-200 hover:bg-indigo-50"
+                >
                   Browse Events
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
@@ -123,7 +157,9 @@ export default function Index() {
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-xl mb-4">
                   <stat.icon className="w-6 h-6 text-indigo-600" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                <div className="text-3xl font-bold text-gray-900 mb-1">
+                  {stat.value}
+                </div>
                 <div className="text-gray-600">{stat.label}</div>
               </div>
             ))}
@@ -135,15 +171,21 @@ export default function Index() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Events</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Featured Events
+            </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Don't miss out on these exciting upcoming events happening at our college
+              Don't miss out on these exciting upcoming events happening at our
+              college
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredEvents.map((event) => (
-              <Card key={event.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+              <Card
+                key={event.id}
+                className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white/80 backdrop-blur-sm"
+              >
                 <div className="relative">
                   <img
                     src={event.image}
@@ -202,16 +244,24 @@ export default function Index() {
             Ready to Get Started?
           </h2>
           <p className="text-xl text-indigo-100 mb-8">
-            Join thousands of students already using EventHub to discover and create amazing events
+            Join thousands of students already using EventHub to discover and
+            create amazing events
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/signup">
-              <Button size="lg" className="bg-white text-indigo-600 hover:bg-gray-50 text-lg px-8">
+              <Button
+                size="lg"
+                className="bg-white text-indigo-600 hover:bg-gray-50 text-lg px-8"
+              >
                 Sign Up Free
               </Button>
             </Link>
             <Link to="/login">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-indigo-600 text-lg px-8 transition-colors duration-300">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-indigo-600 text-lg px-8 transition-colors duration-300"
+              >
                 Sign In
               </Button>
             </Link>
@@ -231,29 +281,61 @@ export default function Index() {
                 <span className="text-xl font-bold">EventHub</span>
               </div>
               <p className="text-gray-400">
-                The ultimate platform for college event management and discovery.
+                The ultimate platform for college event management and
+                discovery.
               </p>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/events" className="hover:text-white">Browse Events</Link></li>
-                <li><Link to="/create-event" className="hover:text-white">Create Event</Link></li>
-                <li><Link to="/dashboard" className="hover:text-white">Dashboard</Link></li>
+                <li>
+                  <Link to="/events" className="hover:text-white">
+                    Browse Events
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/create-event" className="hover:text-white">
+                    Create Event
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard" className="hover:text-white">
+                    Dashboard
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Account</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/login" className="hover:text-white">Sign In</Link></li>
-                <li><Link to="/signup" className="hover:text-white">Sign Up</Link></li>
+                <li>
+                  <Link to="/login" className="hover:text-white">
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="hover:text-white">
+                    Sign Up
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="mailto:adishinde62020@gmail.com?subject=EventHub Support&body=Phone: 8830899840" className="hover:text-white">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
+                <li>
+                  <a
+                    href="mailto:adishinde62020@gmail.com?subject=EventHub Support&body=Phone: 8830899840"
+                    className="hover:text-white"
+                  >
+                    Contact Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white">
+                    Help Center
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
