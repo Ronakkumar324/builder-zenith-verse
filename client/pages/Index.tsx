@@ -24,6 +24,7 @@ export default function Index() {
 
   useEffect(() => {
     updateRealTimeStats();
+    updateFeaturedEvents();
   }, []);
 
   const updateRealTimeStats = () => {
@@ -57,41 +58,34 @@ export default function Index() {
     });
   };
 
-  const featuredEvents = [
-    {
-      id: 1,
-      title: "Tech Innovation Summit 2024",
-      date: "March 15, 2024",
-      time: "10:00 AM",
-      location: "Main Auditorium",
-      attendees: 150,
-      category: "Technology",
-      image: "/placeholder.svg",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Annual Cultural Festival",
-      date: "March 22, 2024",
-      time: "6:00 PM",
-      location: "College Grounds",
-      attendees: 500,
-      category: "Cultural",
-      image: "/placeholder.svg",
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Career Fair Spring 2024",
-      date: "April 5, 2024",
-      time: "9:00 AM",
-      location: "Student Center",
-      attendees: 300,
-      category: "Career",
-      image: "/placeholder.svg",
-      featured: false,
-    },
-  ];
+  // Get real featured events from localStorage
+  const [featuredEvents, setFeaturedEvents] = useState([]);
+
+  const updateFeaturedEvents = () => {
+    const activeEvents = eventStorage.getActiveEvents();
+
+    // Sort by attendees and take top 3 as featured
+    const sortedEvents = activeEvents
+      .sort((a, b) => b.attendees - a.attendees)
+      .slice(0, 3);
+
+    // Convert to the format expected by the UI
+    const formattedEvents = sortedEvents.map(event => ({
+      id: event.id,
+      title: event.title,
+      date: eventStorage.formatDate(event.date),
+      time: event.startTime && event.endTime ?
+        `${event.startTime} - ${event.endTime}` :
+        event.time || event.startTime,
+      location: event.venue,
+      attendees: event.attendees,
+      category: event.category,
+      image: event.image || "/placeholder.svg",
+      featured: event.attendees > 100, // Mark high-attendance events as featured
+    }));
+
+    setFeaturedEvents(formattedEvents);
+  };
 
   const stats = [
     {
@@ -241,58 +235,76 @@ export default function Index() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredEvents.map((event) => (
-              <Card
-                key={event.id}
-                className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white/80 backdrop-blur-sm"
-              >
-                <div className="relative">
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-48 object-cover rounded-t-lg"
-                  />
-                  {event.featured && (
-                    <Badge className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white">
-                      <Star className="w-3 h-3 mr-1" />
-                      Featured
+            {featuredEvents.length === 0 ? (
+              <div className="col-span-full text-center py-12">
+                <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  No Featured Events Yet
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  Create some events to see them featured here!
+                </p>
+                <Link to="/create-event">
+                  <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create Your First Event
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              featuredEvents.map((event) => (
+                <Card
+                  key={event.id}
+                  className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white/80 backdrop-blur-sm"
+                >
+                  <div className="relative">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-48 object-cover rounded-t-lg"
+                    />
+                    {event.featured && (
+                      <Badge className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white">
+                        <Star className="w-3 h-3 mr-1" />
+                        Featured
+                      </Badge>
+                    )}
+                    <Badge className="absolute top-4 right-4 bg-white/90 text-gray-700">
+                      {event.category}
                     </Badge>
-                  )}
-                  <Badge className="absolute top-4 right-4 bg-white/90 text-gray-700">
-                    {event.category}
-                  </Badge>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
-                    {event.title}
-                  </h3>
-                  <div className="space-y-2 text-sm text-gray-600 mb-4">
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      {event.date}
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-2" />
-                      {event.time}
-                    </div>
-                    <div className="flex items-center">
-                      <MapPin className="w-4 h-4 mr-2" />
-                      {event.location}
-                    </div>
-                    <div className="flex items-center">
-                      <Users className="w-4 h-4 mr-2" />
-                      {event.attendees} attending
-                    </div>
                   </div>
-                  <Link to={`/event-details/${event.id}`}>
-                    <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
-                      View Details
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                      {event.title}
+                    </h3>
+                    <div className="space-y-2 text-sm text-gray-600 mb-4">
+                      <div className="flex items-center">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        {event.date}
+                      </div>
+                      <div className="flex items-center">
+                        <Clock className="w-4 h-4 mr-2" />
+                        {event.time}
+                      </div>
+                      <div className="flex items-center">
+                        <MapPin className="w-4 h-4 mr-2" />
+                        {event.location}
+                      </div>
+                      <div className="flex items-center">
+                        <Users className="w-4 h-4 mr-2" />
+                        {event.attendees} attending
+                      </div>
+                    </div>
+                    <Link to={`/event-details/${event.id}`}>
+                      <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
+                        View Details
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>
