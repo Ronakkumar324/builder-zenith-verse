@@ -286,12 +286,12 @@ export default function Dashboard() {
 
           {/* Registered Events Tab */}
           <TabsContent value="registered" className="space-y-6">
-            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="card-elevated animate-slide-in-up">
               <CardHeader>
-                <CardTitle className="text-xl font-semibold">My Registered Events</CardTitle>
+                <CardTitle className="text-xl font-semibold text-gradient-primary">My Registered Events</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid-cards">
                   {registeredEvents.map((event) => (
                     <Card key={event.id} className="hover:shadow-lg transition-shadow">
                       <div className="relative">
