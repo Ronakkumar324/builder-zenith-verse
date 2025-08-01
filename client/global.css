@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -108,8 +108,17 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family:
+      "Inter",
+      "Poppins",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   /* Enhanced focus styles */
@@ -212,7 +221,10 @@
   }
 
   .bg-gradient-conic {
-    background: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      var(--tw-gradient-stops)
+    );
   }
 
   /* Gradient Utilities */
@@ -290,8 +302,9 @@
   /* Modern Borders */
   .border-gradient {
     border: 1px solid transparent;
-    background: linear-gradient(white, white) padding-box,
-                linear-gradient(45deg, #6366f1, #8b5cf6) border-box;
+    background:
+      linear-gradient(white, white) padding-box,
+      linear-gradient(45deg, #6366f1, #8b5cf6) border-box;
   }
 
   /* Responsive Container */
@@ -366,7 +379,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {

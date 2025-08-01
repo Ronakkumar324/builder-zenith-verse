@@ -1,171 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Event - EventHub</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-icon">📅</span>
-                <span class="logo-text">EventHub</span>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Events</a></li>
-                <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="btn btn-outline">Sign In</button>
-                <button class="btn btn-primary">Sign Up</button>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+      <div class="nav-container">
+        <div class="nav-logo">
+          <span class="logo-icon">📅</span>
+          <span class="logo-text">EventHub</span>
         </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item"><a href="#" class="nav-link">Events</a></li>
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+          </li>
+        </ul>
+        <div class="nav-actions">
+          <button class="btn btn-outline">Sign In</button>
+          <button class="btn btn-primary">Sign Up</button>
+        </div>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="container">
-            <!-- Page Header -->
-            <div class="page-header">
-                <button class="btn-back" onclick="window.history.back()">
-                    <span class="back-icon">←</span>
-                    Back to Dashboard
-                </button>
-                <h1 class="page-title">Create New Event</h1>
-                <p class="page-subtitle">Fill in the details below to create an amazing event for your community</p>
-            </div>
-
-            <!-- Create Event Form -->
-            <div class="form-container">
-                <form id="create-event-form" class="event-form">
-                    <div class="form-section">
-                        <h3 class="section-title">Event Details</h3>
-                        
-                        <!-- Title -->
-                        <div class="form-group">
-                            <label for="title" class="form-label">Event Title *</label>
-                            <input type="text" id="title" name="title" class="form-input" 
-                                   placeholder="Enter event title" required>
-                            <div class="error-message" id="title-error"></div>
-                        </div>
-
-                        <!-- Description -->
-                        <div class="form-group">
-                            <label for="description" class="form-label">Event Description *</label>
-                            <textarea id="description" name="description" class="form-textarea" 
-                                      placeholder="Describe your event in detail..." required></textarea>
-                            <div class="error-message" id="description-error"></div>
-                        </div>
-
-                        <!-- Date and Time -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="date" class="form-label">Event Date *</label>
-                                <input type="date" id="date" name="date" class="form-input" required>
-                                <div class="error-message" id="date-error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="time" class="form-label">Event Time *</label>
-                                <input type="time" id="time" name="time" class="form-input" required>
-                                <div class="error-message" id="time-error"></div>
-                            </div>
-                        </div>
-
-                        <!-- Venue -->
-                        <div class="form-group">
-                            <label for="venue" class="form-label">Venue *</label>
-                            <input type="text" id="venue" name="venue" class="form-input" 
-                                   placeholder="Enter venue location" required>
-                            <div class="error-message" id="venue-error"></div>
-                        </div>
-
-                        <!-- Category and Max Seats -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="category" class="form-label">Category *</label>
-                                <select id="category" name="category" class="form-select" required>
-                                    <option value="">Select event category</option>
-                                    <option value="technology">Technology</option>
-                                    <option value="cultural">Cultural</option>
-                                    <option value="career">Career</option>
-                                    <option value="education">Education</option>
-                                    <option value="sports">Sports</option>
-                                    <option value="health">Health & Wellness</option>
-                                    <option value="entertainment">Entertainment</option>
-                                    <option value="social">Social</option>
-                                    <option value="professional">Professional</option>
-                                    <option value="academic">Academic</option>
-                                </select>
-                                <div class="error-message" id="category-error"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="maxSeats" class="form-label">Maximum Seats *</label>
-                                <input type="number" id="maxSeats" name="maxSeats" class="form-input" 
-                                       placeholder="Enter max capacity" min="1" max="10000" required>
-                                <div class="error-message" id="maxSeats-error"></div>
-                            </div>
-                        </div>
-
-                        <!-- Image Upload -->
-                        <div class="form-group">
-                            <label class="form-label">Event Image</label>
-                            <div class="file-upload-area" id="file-upload">
-                                <div class="upload-content">
-                                    <div class="upload-icon">📎</div>
-                                    <p class="upload-text">Click to upload event image</p>
-                                    <p class="upload-subtext">PNG, JPG up to 5MB</p>
-                                </div>
-                                <input type="file" id="image" name="image" accept="image/*" class="file-input">
-                            </div>
-                            <div class="error-message" id="image-error"></div>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
-                            Create Event
-                        </button>
-                    </div>
-                </form>
-            </div>
+      <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+          <button class="btn-back" onclick="window.history.back()">
+            <span class="back-icon">←</span>
+            Back to Dashboard
+          </button>
+          <h1 class="page-title">Create New Event</h1>
+          <p class="page-subtitle">
+            Fill in the details below to create an amazing event for your
+            community
+          </p>
         </div>
+
+        <!-- Create Event Form -->
+        <div class="form-container">
+          <form id="create-event-form" class="event-form">
+            <div class="form-section">
+              <h3 class="section-title">Event Details</h3>
+
+              <!-- Title -->
+              <div class="form-group">
+                <label for="title" class="form-label">Event Title *</label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  class="form-input"
+                  placeholder="Enter event title"
+                  required
+                />
+                <div class="error-message" id="title-error"></div>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group">
+                <label for="description" class="form-label"
+                  >Event Description *</label
+                >
+                <textarea
+                  id="description"
+                  name="description"
+                  class="form-textarea"
+                  placeholder="Describe your event in detail..."
+                  required
+                ></textarea>
+                <div class="error-message" id="description-error"></div>
+              </div>
+
+              <!-- Date and Time -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="date" class="form-label">Event Date *</label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    class="form-input"
+                    required
+                  />
+                  <div class="error-message" id="date-error"></div>
+                </div>
+                <div class="form-group">
+                  <label for="time" class="form-label">Event Time *</label>
+                  <input
+                    type="time"
+                    id="time"
+                    name="time"
+                    class="form-input"
+                    required
+                  />
+                  <div class="error-message" id="time-error"></div>
+                </div>
+              </div>
+
+              <!-- Venue -->
+              <div class="form-group">
+                <label for="venue" class="form-label">Venue *</label>
+                <input
+                  type="text"
+                  id="venue"
+                  name="venue"
+                  class="form-input"
+                  placeholder="Enter venue location"
+                  required
+                />
+                <div class="error-message" id="venue-error"></div>
+              </div>
+
+              <!-- Category and Max Seats -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="category" class="form-label">Category *</label>
+                  <select
+                    id="category"
+                    name="category"
+                    class="form-select"
+                    required
+                  >
+                    <option value="">Select event category</option>
+                    <option value="technology">Technology</option>
+                    <option value="cultural">Cultural</option>
+                    <option value="career">Career</option>
+                    <option value="education">Education</option>
+                    <option value="sports">Sports</option>
+                    <option value="health">Health & Wellness</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="social">Social</option>
+                    <option value="professional">Professional</option>
+                    <option value="academic">Academic</option>
+                  </select>
+                  <div class="error-message" id="category-error"></div>
+                </div>
+                <div class="form-group">
+                  <label for="maxSeats" class="form-label"
+                    >Maximum Seats *</label
+                  >
+                  <input
+                    type="number"
+                    id="maxSeats"
+                    name="maxSeats"
+                    class="form-input"
+                    placeholder="Enter max capacity"
+                    min="1"
+                    max="10000"
+                    required
+                  />
+                  <div class="error-message" id="maxSeats-error"></div>
+                </div>
+              </div>
+
+              <!-- Image Upload -->
+              <div class="form-group">
+                <label class="form-label">Event Image</label>
+                <div class="file-upload-area" id="file-upload">
+                  <div class="upload-content">
+                    <div class="upload-icon">📎</div>
+                    <p class="upload-text">Click to upload event image</p>
+                    <p class="upload-subtext">PNG, JPG up to 5MB</p>
+                  </div>
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                    class="file-input"
+                  />
+                </div>
+                <div class="error-message" id="image-error"></div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+              <button
+                type="submit"
+                class="btn btn-primary btn-large"
+                id="submit-btn"
+              >
+                Create Event
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </main>
 
     <!-- Success Modal -->
     <div id="success-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="success-icon">✅</div>
-                <h3 class="modal-title">Event Created Successfully!</h3>
-            </div>
-            <div class="modal-body">
-                <p>Your event has been created and is now live!</p>
-                <div class="event-id">Event ID: <span id="generated-id"></span></div>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-outline" onclick="redirectToDashboard()">Go to Dashboard</button>
-                <button class="btn btn-primary" onclick="viewEvent()">View Event</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="success-icon">✅</div>
+          <h3 class="modal-title">Event Created Successfully!</h3>
         </div>
+        <div class="modal-body">
+          <p>Your event has been created and is now live!</p>
+          <div class="event-id">Event ID: <span id="generated-id"></span></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-outline" onclick="redirectToDashboard()">
+            Go to Dashboard
+          </button>
+          <button class="btn btn-primary" onclick="viewEvent()">
+            View Event
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="loading-overlay">
-        <div class="spinner"></div>
-        <p>Creating your event...</p>
+      <div class="spinner"></div>
+      <p>Creating your event...</p>
     </div>
 
     <script src="assets/js/events.js"></script>
-</body>
+  </body>
 </html>

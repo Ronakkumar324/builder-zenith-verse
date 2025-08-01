@@ -1,195 +1,234 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - EventHub</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-icon">📅</span>
-                <span class="logo-text">EventHub</span>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Events</a></li>
-                <li class="nav-item"><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="btn btn-icon" id="theme-toggle">🌙</button>
-                <button class="btn btn-icon">🔔</button>
-                <button class="btn btn-icon">⚙️</button>
-                <div class="user-avatar">
-                    <img src="https://via.placeholder.com/32" alt="User Avatar" class="avatar-img">
-                </div>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+      <div class="nav-container">
+        <div class="nav-logo">
+          <span class="logo-icon">📅</span>
+          <span class="logo-text">EventHub</span>
         </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item"><a href="#" class="nav-link">Events</a></li>
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link active">Dashboard</a>
+          </li>
+        </ul>
+        <div class="nav-actions">
+          <button class="btn btn-icon" id="theme-toggle">🌙</button>
+          <button class="btn btn-icon">🔔</button>
+          <button class="btn btn-icon">⚙️</button>
+          <div class="user-avatar">
+            <img
+              src="https://via.placeholder.com/32"
+              alt="User Avatar"
+              class="avatar-img"
+            />
+          </div>
+        </div>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="container">
-            <!-- Dashboard Header -->
-            <div class="dashboard-header">
-                <div class="welcome-section">
-                    <h1 class="welcome-title">Welcome, <span id="user-name">Ronak</span>! 👋</h1>
-                    <p class="user-role">
-                        <span class="role-icon">👤</span>
-                        <span id="user-role-text">Event Organizer</span>
-                    </p>
-                </div>
-                <div class="header-actions">
-                    <button class="btn btn-primary" onclick="location.href='create-event.html'">
-                        <span class="btn-icon">➕</span>
-                        Create Event
-                    </button>
-                    <button class="btn btn-outline btn-danger" onclick="logout()">
-                        <span class="btn-icon">🚪</span>
-                        Logout
-                    </button>
-                </div>
-            </div>
-
-            <!-- Statistics Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon bg-blue">📅</div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="registered-events">3</h3>
-                        <p class="stat-label">Registered Events</p>
-                    </div>
-                </div>
-                <div class="stat-card" id="organizer-stats-1" style="display: none;">
-                    <div class="stat-icon bg-green">📊</div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="organized-events">2</h3>
-                        <p class="stat-label">Events Organized</p>
-                    </div>
-                </div>
-                <div class="stat-card" id="organizer-stats-2" style="display: none;">
-                    <div class="stat-icon bg-purple">👥</div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="total-registrations">323</h3>
-                        <p class="stat-label">Total Registrations</p>
-                    </div>
-                </div>
-                <div class="stat-card" id="participant-stats-1">
-                    <div class="stat-icon bg-yellow">⭐</div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="events-attended">1</h3>
-                        <p class="stat-label">Events Attended</p>
-                    </div>
-                </div>
-                <div class="stat-card" id="participant-stats-2">
-                    <div class="stat-icon bg-indigo">⏰</div>
-                    <div class="stat-content">
-                        <h3 class="stat-number" id="upcoming-events">2</h3>
-                        <p class="stat-label">Upcoming Events</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dashboard Tabs -->
-            <div class="tabs-container">
-                <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="registered">My Events</button>
-                    <button class="tab-btn" data-tab="organized" id="organized-tab" style="display: none;">Organized</button>
-                    <button class="tab-btn" data-tab="profile">Profile</button>
-                </div>
-
-                <!-- Registered Events Tab -->
-                <div class="tab-content active" id="registered-tab-content">
-                    <div class="content-header">
-                        <h2 class="content-title">My Registered Events</h2>
-                    </div>
-                    <div class="events-grid" id="registered-events-grid">
-                        <!-- Events will be loaded dynamically -->
-                    </div>
-                </div>
-
-                <!-- Organized Events Tab -->
-                <div class="tab-content" id="organized-tab-content">
-                    <div class="content-header">
-                        <h2 class="content-title">Events I'm Organizing</h2>
-                    </div>
-                    <div class="events-grid" id="organized-events-grid">
-                        <!-- Events will be loaded dynamically -->
-                    </div>
-                </div>
-
-                <!-- Profile Tab -->
-                <div class="tab-content" id="profile-tab-content">
-                    <div class="profile-section">
-                        <div class="profile-header">
-                            <div class="profile-avatar">
-                                <img src="https://via.placeholder.com/80" alt="Profile Picture" class="profile-img">
-                            </div>
-                            <div class="profile-info">
-                                <h3 class="profile-name" id="profile-name">Ronak Bhambu</h3>
-                                <p class="profile-email" id="profile-email">ronak@college.edu</p>
-                                <span class="profile-role" id="profile-role">Event Organizer</span>
-                            </div>
-                        </div>
-                        
-                        <div class="profile-actions">
-                            <button class="btn btn-outline">Edit Profile</button>
-                            <button class="btn btn-outline">Change Password</button>
-                            <button class="btn btn-outline">Notification Settings</button>
-                            <button class="btn btn-outline">Privacy Settings</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+          <div class="welcome-section">
+            <h1 class="welcome-title">
+              Welcome, <span id="user-name">Ronak</span>! 👋
+            </h1>
+            <p class="user-role">
+              <span class="role-icon">👤</span>
+              <span id="user-role-text">Event Organizer</span>
+            </p>
+          </div>
+          <div class="header-actions">
+            <button
+              class="btn btn-primary"
+              onclick="location.href='create-event.html'"
+            >
+              <span class="btn-icon">➕</span>
+              Create Event
+            </button>
+            <button class="btn btn-outline btn-danger" onclick="logout()">
+              <span class="btn-icon">🚪</span>
+              Logout
+            </button>
+          </div>
         </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon bg-blue">📅</div>
+            <div class="stat-content">
+              <h3 class="stat-number" id="registered-events">3</h3>
+              <p class="stat-label">Registered Events</p>
+            </div>
+          </div>
+          <div class="stat-card" id="organizer-stats-1" style="display: none">
+            <div class="stat-icon bg-green">📊</div>
+            <div class="stat-content">
+              <h3 class="stat-number" id="organized-events">2</h3>
+              <p class="stat-label">Events Organized</p>
+            </div>
+          </div>
+          <div class="stat-card" id="organizer-stats-2" style="display: none">
+            <div class="stat-icon bg-purple">👥</div>
+            <div class="stat-content">
+              <h3 class="stat-number" id="total-registrations">323</h3>
+              <p class="stat-label">Total Registrations</p>
+            </div>
+          </div>
+          <div class="stat-card" id="participant-stats-1">
+            <div class="stat-icon bg-yellow">⭐</div>
+            <div class="stat-content">
+              <h3 class="stat-number" id="events-attended">1</h3>
+              <p class="stat-label">Events Attended</p>
+            </div>
+          </div>
+          <div class="stat-card" id="participant-stats-2">
+            <div class="stat-icon bg-indigo">⏰</div>
+            <div class="stat-content">
+              <h3 class="stat-number" id="upcoming-events">2</h3>
+              <p class="stat-label">Upcoming Events</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Tabs -->
+        <div class="tabs-container">
+          <div class="tabs-header">
+            <button class="tab-btn active" data-tab="registered">
+              My Events
+            </button>
+            <button
+              class="tab-btn"
+              data-tab="organized"
+              id="organized-tab"
+              style="display: none"
+            >
+              Organized
+            </button>
+            <button class="tab-btn" data-tab="profile">Profile</button>
+          </div>
+
+          <!-- Registered Events Tab -->
+          <div class="tab-content active" id="registered-tab-content">
+            <div class="content-header">
+              <h2 class="content-title">My Registered Events</h2>
+            </div>
+            <div class="events-grid" id="registered-events-grid">
+              <!-- Events will be loaded dynamically -->
+            </div>
+          </div>
+
+          <!-- Organized Events Tab -->
+          <div class="tab-content" id="organized-tab-content">
+            <div class="content-header">
+              <h2 class="content-title">Events I'm Organizing</h2>
+            </div>
+            <div class="events-grid" id="organized-events-grid">
+              <!-- Events will be loaded dynamically -->
+            </div>
+          </div>
+
+          <!-- Profile Tab -->
+          <div class="tab-content" id="profile-tab-content">
+            <div class="profile-section">
+              <div class="profile-header">
+                <div class="profile-avatar">
+                  <img
+                    src="https://via.placeholder.com/80"
+                    alt="Profile Picture"
+                    class="profile-img"
+                  />
+                </div>
+                <div class="profile-info">
+                  <h3 class="profile-name" id="profile-name">Ronak Bhambu</h3>
+                  <p class="profile-email" id="profile-email">
+                    ronak@college.edu
+                  </p>
+                  <span class="profile-role" id="profile-role"
+                    >Event Organizer</span
+                  >
+                </div>
+              </div>
+
+              <div class="profile-actions">
+                <button class="btn btn-outline">Edit Profile</button>
+                <button class="btn btn-outline">Change Password</button>
+                <button class="btn btn-outline">Notification Settings</button>
+                <button class="btn btn-outline">Privacy Settings</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Event Card Template -->
     <template id="event-card-template">
-        <div class="event-card">
-            <div class="event-image">
-                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="card-img">
-                <div class="event-status"></div>
-            </div>
-            <div class="event-content">
-                <h3 class="event-title"></h3>
-                <div class="event-details">
-                    <div class="event-detail">
-                        <span class="detail-icon">📅</span>
-                        <span class="detail-text event-date"></span>
-                    </div>
-                    <div class="event-detail">
-                        <span class="detail-icon">⏰</span>
-                        <span class="detail-text event-time"></span>
-                    </div>
-                    <div class="event-detail">
-                        <span class="detail-icon">📍</span>
-                        <span class="detail-text event-location"></span>
-                    </div>
-                    <div class="event-detail">
-                        <span class="detail-icon">👥</span>
-                        <span class="detail-text event-attendees"></span>
-                    </div>
-                </div>
-                <div class="event-actions">
-                    <button class="btn btn-primary btn-small event-action-btn">View Details</button>
-                </div>
-            </div>
+      <div class="event-card">
+        <div class="event-image">
+          <img
+            src="https://via.placeholder.com/300x150"
+            alt="Event Image"
+            class="card-img"
+          />
+          <div class="event-status"></div>
         </div>
+        <div class="event-content">
+          <h3 class="event-title"></h3>
+          <div class="event-details">
+            <div class="event-detail">
+              <span class="detail-icon">📅</span>
+              <span class="detail-text event-date"></span>
+            </div>
+            <div class="event-detail">
+              <span class="detail-icon">⏰</span>
+              <span class="detail-text event-time"></span>
+            </div>
+            <div class="event-detail">
+              <span class="detail-icon">📍</span>
+              <span class="detail-text event-location"></span>
+            </div>
+            <div class="event-detail">
+              <span class="detail-icon">👥</span>
+              <span class="detail-text event-attendees"></span>
+            </div>
+          </div>
+          <div class="event-actions">
+            <button class="btn btn-primary btn-small event-action-btn">
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
     </template>
 
     <!-- Theme Toggle -->
     <div id="theme-indicator" class="theme-indicator">🌙</div>
 
     <script src="assets/js/dashboard.js"></script>
-</body>
+  </body>
 </html>

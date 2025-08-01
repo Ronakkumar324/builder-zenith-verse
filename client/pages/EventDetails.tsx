@@ -2,22 +2,27 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  Calendar, 
-  Clock, 
-  MapPin, 
-  Users, 
-  ArrowLeft, 
-  Share2, 
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
+  ArrowLeft,
+  Share2,
   Heart,
   CheckCircle,
   Star,
   User,
   Phone,
   Mail,
-  Globe
+  Globe,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -32,7 +37,8 @@ export default function EventDetails() {
     1: {
       id: 1,
       title: "Tech Innovation Summit 2024",
-      description: "Join us for an exciting day of technological innovation and networking. This summit brings together industry leaders, students, and tech enthusiasts to explore the latest trends in artificial intelligence, machine learning, and emerging technologies. Experience keynote speeches from top executives, interactive workshops, and hands-on demonstrations of cutting-edge tech solutions.",
+      description:
+        "Join us for an exciting day of technological innovation and networking. This summit brings together industry leaders, students, and tech enthusiasts to explore the latest trends in artificial intelligence, machine learning, and emerging technologies. Experience keynote speeches from top executives, interactive workshops, and hands-on demonstrations of cutting-edge tech solutions.",
       date: "March 15, 2024",
       time: "10:00 AM - 6:00 PM",
       venue: "Main Auditorium, Building A",
@@ -46,15 +52,16 @@ export default function EventDetails() {
         name: "Tech Club",
         avatar: "/placeholder.svg",
         email: "techclub@college.edu",
-        phone: "+1 (555) 123-4567"
+        phone: "+1 (555) 123-4567",
       },
       tags: ["AI", "Machine Learning", "Innovation", "Networking"],
-      featured: true
+      featured: true,
     },
     2: {
       id: 2,
       title: "Annual Cultural Festival",
-      description: "Celebrate the diversity and richness of our college culture with performances, food, art exhibitions, and cultural displays from students representing various backgrounds. This festival showcases traditional and contemporary art forms, music performances, dance shows, and interactive cultural workshops. Experience the vibrant traditions and modern expressions of our diverse student community.",
+      description:
+        "Celebrate the diversity and richness of our college culture with performances, food, art exhibitions, and cultural displays from students representing various backgrounds. This festival showcases traditional and contemporary art forms, music performances, dance shows, and interactive cultural workshops. Experience the vibrant traditions and modern expressions of our diverse student community.",
       date: "March 22, 2024",
       time: "6:00 PM - 11:00 PM",
       venue: "College Grounds, Main Campus",
@@ -68,15 +75,16 @@ export default function EventDetails() {
         name: "Cultural Committee",
         avatar: "/placeholder.svg",
         email: "cultural@college.edu",
-        phone: "+1 (555) 123-4568"
+        phone: "+1 (555) 123-4568",
       },
       tags: ["Culture", "Music", "Dance", "Art", "Food"],
-      featured: false
+      featured: false,
     },
     3: {
       id: 3,
       title: "Career Fair Spring 2024",
-      description: "Connect with top employers and explore exciting career opportunities across various industries. This comprehensive career fair features representatives from leading companies in technology, finance, healthcare, consulting, and more. Participate in on-the-spot interviews, attend career workshops, and network with industry professionals to kickstart your career journey.",
+      description:
+        "Connect with top employers and explore exciting career opportunities across various industries. This comprehensive career fair features representatives from leading companies in technology, finance, healthcare, consulting, and more. Participate in on-the-spot interviews, attend career workshops, and network with industry professionals to kickstart your career journey.",
       date: "April 5, 2024",
       time: "9:00 AM - 4:00 PM",
       venue: "Student Center, Hall B & C",
@@ -90,11 +98,11 @@ export default function EventDetails() {
         name: "Career Services",
         avatar: "/placeholder.svg",
         email: "careers@college.edu",
-        phone: "+1 (555) 123-4569"
+        phone: "+1 (555) 123-4569",
       },
       tags: ["Career", "Jobs", "Networking", "Interview", "Professional"],
-      featured: false
-    }
+      featured: false,
+    },
   };
 
   const event = eventData[id as keyof typeof eventData] || eventData[1];
@@ -113,7 +121,7 @@ export default function EventDetails() {
           url: window.location.href,
         });
       } catch (err) {
-        console.log('Error sharing:', err);
+        console.log("Error sharing:", err);
       }
     } else {
       // Fallback: copy to clipboard
@@ -136,13 +144,31 @@ export default function EventDetails() {
               </span>
             </Link>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium">Home</Link>
-              <Link to="/events" className="text-gray-700 hover:text-indigo-600 font-medium">Events</Link>
-              <Link to="/dashboard" className="text-gray-700 hover:text-indigo-600 font-medium">Dashboard</Link>
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                to="/events"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Events
+              </Link>
+              <Link
+                to="/dashboard"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Dashboard
+              </Link>
             </nav>
             <div className="flex items-center space-x-4">
               <Link to="/login">
-                <Button variant="ghost" className="text-gray-700 hover:text-indigo-600">
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 hover:text-indigo-600"
+                >
                   Sign In
                 </Button>
               </Link>
@@ -159,8 +185,8 @@ export default function EventDetails() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
         <div className="mb-6">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => navigate(-1)}
             className="text-gray-600 hover:text-indigo-600"
           >
@@ -197,10 +223,14 @@ export default function EventDetails() {
               <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl sticky top-24">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
-                    <div className="text-3xl font-bold text-gray-900 mb-2">{event.price}</div>
+                    <div className="text-3xl font-bold text-gray-900 mb-2">
+                      {event.price}
+                    </div>
                     <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
                       <Users className="w-4 h-4" />
-                      <span>{event.seatsLeft} seats left of {event.totalSeats}</span>
+                      <span>
+                        {event.seatsLeft} seats left of {event.totalSeats}
+                      </span>
                     </div>
                   </div>
 
@@ -217,21 +247,23 @@ export default function EventDetails() {
                       <MapPin className="w-5 h-5 mr-3 text-indigo-600 mt-0.5" />
                       <div>
                         <div>{event.venue}</div>
-                        <div className="text-sm text-gray-500">{event.address}</div>
+                        <div className="text-sm text-gray-500">
+                          {event.address}
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   <div className="space-y-3">
                     {!isRegistered ? (
-                      <Button 
+                      <Button
                         onClick={handleRegister}
                         className="w-full h-12 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium"
                       >
                         Register Now
                       </Button>
                     ) : (
-                      <Button 
+                      <Button
                         disabled
                         className="w-full h-12 bg-green-600 text-white font-medium"
                       >
@@ -239,9 +271,14 @@ export default function EventDetails() {
                         Registered Successfully
                       </Button>
                     )}
-                    
+
                     <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="flex-1" onClick={handleShare}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1"
+                        onClick={handleShare}
+                      >
                         <Share2 className="w-4 h-4 mr-2" />
                         Share
                       </Button>
@@ -264,20 +301,30 @@ export default function EventDetails() {
             {/* Title and Description */}
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardContent className="p-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">{event.title}</h1>
-                
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                  {event.title}
+                </h1>
+
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {event.tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary" className="bg-indigo-100 text-indigo-800">
+                    <Badge
+                      key={index}
+                      variant="secondary"
+                      className="bg-indigo-100 text-indigo-800"
+                    >
                       {tag}
                     </Badge>
                   ))}
                 </div>
 
                 <div className="prose prose-gray max-w-none">
-                  <h3 className="text-xl font-semibold mb-3">About This Event</h3>
-                  <p className="text-gray-700 leading-relaxed">{event.description}</p>
+                  <h3 className="text-xl font-semibold mb-3">
+                    About This Event
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed">
+                    {event.description}
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -291,28 +338,36 @@ export default function EventDetails() {
                     <div className="w-2 h-2 bg-indigo-600 rounded-full"></div>
                     <div>
                       <div className="font-medium">Registration & Check-in</div>
-                      <div className="text-sm text-gray-600">9:30 AM - 10:00 AM</div>
+                      <div className="text-sm text-gray-600">
+                        9:30 AM - 10:00 AM
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
                     <div className="w-2 h-2 bg-indigo-600 rounded-full"></div>
                     <div>
                       <div className="font-medium">Opening Ceremony</div>
-                      <div className="text-sm text-gray-600">10:00 AM - 10:30 AM</div>
+                      <div className="text-sm text-gray-600">
+                        10:00 AM - 10:30 AM
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
                     <div className="w-2 h-2 bg-indigo-600 rounded-full"></div>
                     <div>
                       <div className="font-medium">Main Event</div>
-                      <div className="text-sm text-gray-600">10:30 AM - 5:00 PM</div>
+                      <div className="text-sm text-gray-600">
+                        10:30 AM - 5:00 PM
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
                     <div className="w-2 h-2 bg-indigo-600 rounded-full"></div>
                     <div>
                       <div className="font-medium">Networking & Closing</div>
-                      <div className="text-sm text-gray-600">5:00 PM - 6:00 PM</div>
+                      <div className="text-sm text-gray-600">
+                        5:00 PM - 6:00 PM
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -334,7 +389,9 @@ export default function EventDetails() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <div className="font-medium text-gray-900">{event.organizer.name}</div>
+                    <div className="font-medium text-gray-900">
+                      {event.organizer.name}
+                    </div>
                     <div className="text-sm text-gray-600">Event Organizer</div>
                   </div>
                 </div>
@@ -385,14 +442,16 @@ export default function EventDetails() {
           </DialogHeader>
           <div className="text-center space-y-4">
             <p className="text-gray-600">
-              You have successfully registered for <span className="font-medium text-gray-900">{event.title}</span>
+              You have successfully registered for{" "}
+              <span className="font-medium text-gray-900">{event.title}</span>
             </p>
             <p className="text-sm text-gray-500">
-              A confirmation email has been sent to your registered email address with event details and instructions.
+              A confirmation email has been sent to your registered email
+              address with event details and instructions.
             </p>
             <div className="flex space-x-3 pt-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="flex-1"
                 onClick={() => setShowSuccessModal(false)}
               >

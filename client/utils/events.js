@@ -1,7 +1,7 @@
 // events.js - Event management utilities and form handling
 
-import { modalManager, userManager } from './main.js';
-import { formValidator } from './auth.js';
+import { modalManager, userManager } from "./main.js";
+import { formValidator } from "./auth.js";
 
 /**
  * Event Manager
@@ -10,11 +10,18 @@ export class EventManager {
   constructor() {
     this.validator = formValidator;
     this.isLoading = false;
-    this.eventStorage = 'eventhub_events';
+    this.eventStorage = "eventhub_events";
     this.categories = [
-      'Technology', 'Cultural', 'Career', 'Education', 
-      'Sports', 'Health & Wellness', 'Entertainment', 
-      'Social', 'Professional', 'Academic'
+      "Technology",
+      "Cultural",
+      "Career",
+      "Education",
+      "Sports",
+      "Health & Wellness",
+      "Entertainment",
+      "Social",
+      "Professional",
+      "Academic",
     ];
   }
 
@@ -24,14 +31,14 @@ export class EventManager {
 
     const formData = new FormData(formElement);
     const eventData = {
-      title: formData.get('title'),
-      description: formData.get('description'),
-      date: formData.get('date'),
-      time: formData.get('time'),
-      venue: formData.get('venue'),
-      category: formData.get('category'),
-      maxSeats: formData.get('maxSeats'),
-      image: formData.get('image')
+      title: formData.get("title"),
+      description: formData.get("description"),
+      date: formData.get("date"),
+      time: formData.get("time"),
+      venue: formData.get("venue"),
+      category: formData.get("category"),
+      maxSeats: formData.get("maxSeats"),
+      image: formData.get("image"),
     };
 
     // Validate form
@@ -40,13 +47,13 @@ export class EventManager {
         required: true,
         minLength: 5,
         maxLength: 100,
-        message: 'Title must be between 5 and 100 characters'
+        message: "Title must be between 5 and 100 characters",
       },
       description: {
         required: true,
         minLength: 20,
         maxLength: 1000,
-        message: 'Description must be between 20 and 1000 characters'
+        message: "Description must be between 20 and 1000 characters",
       },
       date: {
         required: true,
@@ -56,22 +63,22 @@ export class EventManager {
           today.setHours(0, 0, 0, 0);
           return selectedDate >= today;
         },
-        message: 'Event date cannot be in the past'
+        message: "Event date cannot be in the past",
       },
       time: {
         required: true,
         pattern: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/,
-        message: 'Please enter a valid time'
+        message: "Please enter a valid time",
       },
       venue: {
         required: true,
         minLength: 3,
-        message: 'Venue must be at least 3 characters'
+        message: "Venue must be at least 3 characters",
       },
       category: {
         required: true,
         options: this.categories,
-        message: 'Please select a valid category'
+        message: "Please select a valid category",
       },
       maxSeats: {
         required: true,
@@ -80,12 +87,12 @@ export class EventManager {
           const seats = parseInt(value);
           return seats >= 1 && seats <= 10000;
         },
-        message: 'Maximum seats must be between 1 and 10,000'
-      }
+        message: "Maximum seats must be between 1 and 10,000",
+      },
     };
 
     const { isValid, errors } = this.validateEventForm(eventData, customRules);
-    
+
     if (!isValid) {
       this.displayFormErrors(formElement, errors);
       return false;
@@ -102,12 +109,12 @@ export class EventManager {
       const newEvent = {
         id: this.generateEventId(),
         ...eventData,
-        organizer: userManager.getUser()?.name || 'Unknown Organizer',
+        organizer: userManager.getUser()?.name || "Unknown Organizer",
         organizerId: userManager.getUser()?.id,
         createdAt: new Date().toISOString(),
-        status: 'pending',
+        status: "pending",
         attendees: 0,
-        registrations: []
+        registrations: [],
       };
 
       // Store event
@@ -117,10 +124,9 @@ export class EventManager {
       modalManager.showEventCreationSuccess(newEvent.title, newEvent.id);
 
       return true;
-
     } catch (error) {
-      console.error('Event creation error:', error);
-      this.showError(formElement, 'Failed to create event. Please try again.');
+      console.error("Event creation error:", error);
+      this.showError(formElement, "Failed to create event. Please try again.");
       return false;
     } finally {
       this.setLoadingState(formElement, false);
@@ -132,16 +138,16 @@ export class EventManager {
     const errors = {};
     let isValid = true;
 
-    Object.keys(eventData).forEach(fieldName => {
+    Object.keys(eventData).forEach((fieldName) => {
       const value = eventData[fieldName];
       const rules = customRules[fieldName];
-      
+
       if (!rules) return;
 
       const fieldErrors = [];
 
       // Required check
-      if (rules.required && (!value || String(value).trim() === '')) {
+      if (rules.required && (!value || String(value).trim() === "")) {
         fieldErrors.push(`${this.capitalizeFirst(fieldName)} is required`);
         errors[fieldName] = fieldErrors;
         isValid = false;
@@ -149,20 +155,27 @@ export class EventManager {
       }
 
       // Skip other validations if field is empty and not required
-      if (!value || String(value).trim() === '') return;
+      if (!value || String(value).trim() === "") return;
 
       // Length checks
       if (rules.minLength && String(value).length < rules.minLength) {
-        fieldErrors.push(`${this.capitalizeFirst(fieldName)} must be at least ${rules.minLength} characters`);
+        fieldErrors.push(
+          `${this.capitalizeFirst(fieldName)} must be at least ${rules.minLength} characters`,
+        );
       }
 
       if (rules.maxLength && String(value).length > rules.maxLength) {
-        fieldErrors.push(`${this.capitalizeFirst(fieldName)} must be no more than ${rules.maxLength} characters`);
+        fieldErrors.push(
+          `${this.capitalizeFirst(fieldName)} must be no more than ${rules.maxLength} characters`,
+        );
       }
 
       // Pattern check
       if (rules.pattern && !rules.pattern.test(String(value))) {
-        fieldErrors.push(rules.message || `${this.capitalizeFirst(fieldName)} format is invalid`);
+        fieldErrors.push(
+          rules.message ||
+            `${this.capitalizeFirst(fieldName)} format is invalid`,
+        );
       }
 
       // Options check
@@ -172,7 +185,9 @@ export class EventManager {
 
       // Custom validation
       if (rules.custom && !rules.custom(value)) {
-        fieldErrors.push(rules.message || `${this.capitalizeFirst(fieldName)} is invalid`);
+        fieldErrors.push(
+          rules.message || `${this.capitalizeFirst(fieldName)} is invalid`,
+        );
       }
 
       if (fieldErrors.length > 0) {
@@ -191,7 +206,7 @@ export class EventManager {
 
     if (!email) {
       // Redirect to login if not authenticated
-      window.location.href = '/login';
+      window.location.href = "/login";
       return false;
     }
 
@@ -202,18 +217,21 @@ export class EventManager {
       // Get event data
       const event = this.getEventById(eventId);
       if (!event) {
-        throw new Error('Event not found');
+        throw new Error("Event not found");
       }
 
       // Check if already registered
       if (event.registrations.includes(email)) {
-        this.showMessage('You are already registered for this event', 'warning');
+        this.showMessage(
+          "You are already registered for this event",
+          "warning",
+        );
         return false;
       }
 
       // Check capacity
       if (event.attendees >= event.maxSeats) {
-        this.showMessage('Sorry, this event is full', 'error');
+        this.showMessage("Sorry, this event is full", "error");
         return false;
       }
 
@@ -226,10 +244,9 @@ export class EventManager {
       modalManager.showRegistrationSuccess(event.title);
 
       return true;
-
     } catch (error) {
-      console.error('Registration error:', error);
-      this.showMessage('Registration failed. Please try again.', 'error');
+      console.error("Registration error:", error);
+      this.showMessage("Registration failed. Please try again.", "error");
       return false;
     }
   }
@@ -239,7 +256,7 @@ export class EventManager {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    container.innerHTML = '';
+    container.innerHTML = "";
 
     events.forEach((event, index) => {
       const card = this.createEventCard(event, index);
@@ -249,17 +266,18 @@ export class EventManager {
 
   // Create event card element
   createEventCard(event, index = 0) {
-    const card = document.createElement('div');
-    card.className = 'event-card bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer';
+    const card = document.createElement("div");
+    card.className =
+      "event-card bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer";
     card.style.animationDelay = `${index * 0.1}s`;
-    
+
     const seatsLeft = event.maxSeats - event.attendees;
     const seatsPercentage = (event.attendees / event.maxSeats) * 100;
-    
+
     card.innerHTML = `
       <div class="relative overflow-hidden">
         <img 
-          src="${event.image || '/placeholder.svg'}" 
+          src="${event.image || "/placeholder.svg"}" 
           alt="${event.title}"
           class="w-full h-48 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-110"
         />
@@ -269,7 +287,9 @@ export class EventManager {
             ${event.category}
           </span>
         </div>
-        ${event.status === 'featured' ? `
+        ${
+          event.status === "featured"
+            ? `
           <div class="absolute top-4 left-4">
             <span class="px-2 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full text-xs font-medium flex items-center">
               <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -278,7 +298,9 @@ export class EventManager {
               Featured
             </span>
           </div>
-        ` : ''}
+        `
+            : ""
+        }
       </div>
       
       <div class="p-6">
@@ -351,9 +373,9 @@ export class EventManager {
     `;
 
     // Add click handler for card
-    card.addEventListener('click', (e) => {
+    card.addEventListener("click", (e) => {
       // Don't navigate if clicking on buttons
-      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+      if (e.target.tagName === "BUTTON" || e.target.closest("button")) {
         return;
       }
       window.location.href = `/event-details/${event.id}`;
@@ -364,24 +386,24 @@ export class EventManager {
 
   // Utility functions
   generateEventId() {
-    return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    return "evt_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
   }
 
   saveEvent(event) {
     try {
       const events = this.getAllEvents();
-      const existingIndex = events.findIndex(e => e.id === event.id);
-      
+      const existingIndex = events.findIndex((e) => e.id === event.id);
+
       if (existingIndex !== -1) {
         events[existingIndex] = event;
       } else {
         events.push(event);
       }
-      
+
       localStorage.setItem(this.eventStorage, JSON.stringify(events));
       return true;
     } catch (error) {
-      console.error('Failed to save event:', error);
+      console.error("Failed to save event:", error);
       return false;
     }
   }
@@ -391,23 +413,23 @@ export class EventManager {
       const events = localStorage.getItem(this.eventStorage);
       return events ? JSON.parse(events) : [];
     } catch (error) {
-      console.error('Failed to get events:', error);
+      console.error("Failed to get events:", error);
       return [];
     }
   }
 
   getEventById(eventId) {
     const events = this.getAllEvents();
-    return events.find(event => event.id === eventId);
+    return events.find((event) => event.id === eventId);
   }
 
   formatDate(dateString) {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'short', 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
+    return date.toLocaleDateString("en-US", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   }
 
@@ -416,13 +438,15 @@ export class EventManager {
   }
 
   delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   // Display form errors
   displayFormErrors(formElement, errors) {
-    Object.keys(errors).forEach(fieldName => {
-      const field = formElement.querySelector(`[name="${fieldName}"], #${fieldName}`);
+    Object.keys(errors).forEach((fieldName) => {
+      const field = formElement.querySelector(
+        `[name="${fieldName}"], #${fieldName}`,
+      );
       if (field) {
         this.validator.displayFieldError(field, errors[fieldName]);
       }
@@ -431,13 +455,14 @@ export class EventManager {
 
   // Show error message
   showError(formElement, message) {
-    const existingError = formElement.querySelector('.form-error');
+    const existingError = formElement.querySelector(".form-error");
     if (existingError) {
       existingError.remove();
     }
 
-    const errorElement = document.createElement('div');
-    errorElement.className = 'form-error bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4';
+    const errorElement = document.createElement("div");
+    errorElement.className =
+      "form-error bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4";
     errorElement.innerHTML = `
       <div class="flex items-center">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -451,15 +476,15 @@ export class EventManager {
   }
 
   // Show message
-  showMessage(message, type = 'info') {
+  showMessage(message, type = "info") {
     const colors = {
-      success: 'bg-green-500',
-      error: 'bg-red-500',
-      warning: 'bg-yellow-500',
-      info: 'bg-blue-500'
+      success: "bg-green-500",
+      error: "bg-red-500",
+      warning: "bg-yellow-500",
+      info: "bg-blue-500",
     };
 
-    const messageElement = document.createElement('div');
+    const messageElement = document.createElement("div");
     messageElement.className = `fixed top-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-md shadow-lg z-50 transform transition-all duration-300`;
     messageElement.textContent = message;
 
@@ -467,7 +492,7 @@ export class EventManager {
 
     // Auto remove after 3 seconds
     setTimeout(() => {
-      messageElement.style.transform = 'translateX(100%)';
+      messageElement.style.transform = "translateX(100%)";
       setTimeout(() => {
         if (messageElement.parentNode) {
           messageElement.parentNode.removeChild(messageElement);
@@ -480,7 +505,7 @@ export class EventManager {
   setLoadingState(formElement, isLoading) {
     this.isLoading = isLoading;
     const submitButton = formElement.querySelector('button[type="submit"]');
-    
+
     if (submitButton) {
       if (isLoading) {
         submitButton.disabled = true;
@@ -495,18 +520,20 @@ export class EventManager {
         `;
       } else {
         submitButton.disabled = false;
-        submitButton.innerHTML = 'Create Event';
+        submitButton.innerHTML = "Create Event";
       }
     }
   }
 
   // Setup form handling
   setupEventFormHandling() {
-    const createEventForm = document.querySelector('#create-event-form, form[data-type="create-event"]');
+    const createEventForm = document.querySelector(
+      '#create-event-form, form[data-type="create-event"]',
+    );
     if (createEventForm) {
       this.validator.setupRealTimeValidation(createEventForm);
-      
-      createEventForm.addEventListener('submit', async (e) => {
+
+      createEventForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         await this.handleCreateEvent(createEventForm);
       });
@@ -515,10 +542,10 @@ export class EventManager {
 }
 
 // Initialize event manager when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const eventManager = new EventManager();
   eventManager.setupEventFormHandling();
-  
+
   // Make available globally
   window.eventManager = eventManager;
 });

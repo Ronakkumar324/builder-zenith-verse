@@ -4,28 +4,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  Calendar, 
-  Users, 
-  Settings, 
-  BarChart3, 
-  Shield, 
-  Check, 
-  X, 
-  Ban, 
-  Trash2, 
+import {
+  Calendar,
+  Users,
+  Settings,
+  BarChart3,
+  Shield,
+  Check,
+  X,
+  Ban,
+  Trash2,
   Eye,
   AlertTriangle,
   Activity,
   UserCheck,
   Clock,
-  ArrowLeft
+  ArrowLeft,
 } from "lucide-react";
 import { useState } from "react";
 
 export default function AdminPanel() {
   const navigate = useNavigate();
-  
+
   // Static data for events
   const [events, setEvents] = useState([
     {
@@ -36,7 +36,7 @@ export default function AdminPanel() {
       status: "pending",
       category: "Technology",
       attendees: 150,
-      maxSeats: 200
+      maxSeats: 200,
     },
     {
       id: 2,
@@ -46,7 +46,7 @@ export default function AdminPanel() {
       status: "approved",
       category: "Cultural",
       attendees: 500,
-      maxSeats: 500
+      maxSeats: 500,
     },
     {
       id: 3,
@@ -56,7 +56,7 @@ export default function AdminPanel() {
       status: "approved",
       category: "Career",
       attendees: 300,
-      maxSeats: 400
+      maxSeats: 400,
     },
     {
       id: 4,
@@ -66,7 +66,7 @@ export default function AdminPanel() {
       status: "pending",
       category: "Entertainment",
       attendees: 25,
-      maxSeats: 100
+      maxSeats: 100,
     },
     {
       id: 5,
@@ -76,8 +76,8 @@ export default function AdminPanel() {
       status: "rejected",
       category: "Education",
       attendees: 0,
-      maxSeats: 50
-    }
+      maxSeats: 50,
+    },
   ]);
 
   // Static data for users
@@ -90,7 +90,7 @@ export default function AdminPanel() {
       status: "active",
       joinDate: "Jan 2024",
       eventsCreated: 3,
-      avatar: "/placeholder.svg"
+      avatar: "/placeholder.svg",
     },
     {
       id: 2,
@@ -100,7 +100,7 @@ export default function AdminPanel() {
       status: "active",
       joinDate: "Feb 2024",
       eventsCreated: 0,
-      avatar: "/placeholder.svg"
+      avatar: "/placeholder.svg",
     },
     {
       id: 3,
@@ -110,7 +110,7 @@ export default function AdminPanel() {
       status: "active",
       joinDate: "Dec 2023",
       eventsCreated: 5,
-      avatar: "/placeholder.svg"
+      avatar: "/placeholder.svg",
     },
     {
       id: 4,
@@ -120,7 +120,7 @@ export default function AdminPanel() {
       status: "flagged",
       joinDate: "Mar 2024",
       eventsCreated: 1,
-      avatar: "/placeholder.svg"
+      avatar: "/placeholder.svg",
     },
     {
       id: 5,
@@ -130,37 +130,44 @@ export default function AdminPanel() {
       status: "banned",
       joinDate: "Jan 2024",
       eventsCreated: 0,
-      avatar: "/placeholder.svg"
-    }
+      avatar: "/placeholder.svg",
+    },
   ]);
 
   // Statistics
   const stats = {
     totalUsers: users.length,
-    activeUsers: users.filter(u => u.status === "active").length,
+    activeUsers: users.filter((u) => u.status === "active").length,
     totalEvents: events.length,
-    pendingEvents: events.filter(e => e.status === "pending").length,
-    approvedEvents: events.filter(e => e.status === "approved").length,
-    rejectedEvents: events.filter(e => e.status === "rejected").length
+    pendingEvents: events.filter((e) => e.status === "pending").length,
+    approvedEvents: events.filter((e) => e.status === "approved").length,
+    rejectedEvents: events.filter((e) => e.status === "rejected").length,
   };
 
-  const handleEventAction = (eventId: number, action: 'approve' | 'reject') => {
-    setEvents(prev => prev.map(event => 
-      event.id === eventId 
-        ? { ...event, status: action === 'approve' ? 'approved' : 'rejected' }
-        : event
-    ));
+  const handleEventAction = (eventId: number, action: "approve" | "reject") => {
+    setEvents((prev) =>
+      prev.map((event) =>
+        event.id === eventId
+          ? { ...event, status: action === "approve" ? "approved" : "rejected" }
+          : event,
+      ),
+    );
   };
 
-  const handleUserAction = (userId: number, action: 'ban' | 'delete') => {
-    if (action === 'delete') {
-      setUsers(prev => prev.filter(user => user.id !== userId));
+  const handleUserAction = (userId: number, action: "ban" | "delete") => {
+    if (action === "delete") {
+      setUsers((prev) => prev.filter((user) => user.id !== userId));
     } else {
-      setUsers(prev => prev.map(user => 
-        user.id === userId 
-          ? { ...user, status: user.status === 'banned' ? 'active' : 'banned' }
-          : user
-      ));
+      setUsers((prev) =>
+        prev.map((user) =>
+          user.id === userId
+            ? {
+                ...user,
+                status: user.status === "banned" ? "active" : "banned",
+              }
+            : user,
+        ),
+      );
     }
   };
 
@@ -198,10 +205,30 @@ export default function AdminPanel() {
               </span>
             </Link>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium">Home</Link>
-              <Link to="/events" className="text-gray-700 hover:text-indigo-600 font-medium">Events</Link>
-              <Link to="/dashboard" className="text-gray-700 hover:text-indigo-600 font-medium">Dashboard</Link>
-              <Link to="/admin-panel" className="text-indigo-600 font-medium border-b-2 border-indigo-600">Admin</Link>
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                to="/events"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Events
+              </Link>
+              <Link
+                to="/dashboard"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/admin-panel"
+                className="text-indigo-600 font-medium border-b-2 border-indigo-600"
+              >
+                Admin
+              </Link>
             </nav>
             <div className="flex items-center space-x-4">
               <Badge className="bg-red-100 text-red-800">
@@ -216,8 +243,8 @@ export default function AdminPanel() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
         <div className="mb-6">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => navigate(-1)}
             className="text-gray-600 hover:text-indigo-600"
           >
@@ -247,7 +274,9 @@ export default function AdminPanel() {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-gray-600">Total Users</p>
-                  <p className="text-xl font-bold text-gray-900">{stats.totalUsers}</p>
+                  <p className="text-xl font-bold text-gray-900">
+                    {stats.totalUsers}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -261,7 +290,9 @@ export default function AdminPanel() {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-gray-600">Active Users</p>
-                  <p className="text-xl font-bold text-gray-900">{stats.activeUsers}</p>
+                  <p className="text-xl font-bold text-gray-900">
+                    {stats.activeUsers}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -275,7 +306,9 @@ export default function AdminPanel() {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-gray-600">Total Events</p>
-                  <p className="text-xl font-bold text-gray-900">{stats.totalEvents}</p>
+                  <p className="text-xl font-bold text-gray-900">
+                    {stats.totalEvents}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -289,7 +322,9 @@ export default function AdminPanel() {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-gray-600">Pending</p>
-                  <p className="text-xl font-bold text-gray-900">{stats.pendingEvents}</p>
+                  <p className="text-xl font-bold text-gray-900">
+                    {stats.pendingEvents}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -303,7 +338,9 @@ export default function AdminPanel() {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-gray-600">Approved</p>
-                  <p className="text-xl font-bold text-gray-900">{stats.approvedEvents}</p>
+                  <p className="text-xl font-bold text-gray-900">
+                    {stats.approvedEvents}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -317,7 +354,9 @@ export default function AdminPanel() {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-gray-600">Rejected</p>
-                  <p className="text-xl font-bold text-gray-900">{stats.rejectedEvents}</p>
+                  <p className="text-xl font-bold text-gray-900">
+                    {stats.rejectedEvents}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -346,25 +385,48 @@ export default function AdminPanel() {
                   <table className="w-full">
                     <thead>
                       <tr className="border-b">
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Event</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Organizer</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Date</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Attendees</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Actions</th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Event
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Organizer
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Date
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Status
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Attendees
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {events.map((event) => (
-                        <tr key={event.id} className="border-b hover:bg-gray-50">
+                        <tr
+                          key={event.id}
+                          className="border-b hover:bg-gray-50"
+                        >
                           <td className="py-4 px-4">
                             <div>
-                              <div className="font-medium text-gray-900">{event.title}</div>
-                              <div className="text-sm text-gray-500">{event.category}</div>
+                              <div className="font-medium text-gray-900">
+                                {event.title}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {event.category}
+                              </div>
                             </div>
                           </td>
-                          <td className="py-4 px-4 text-gray-700">{event.organizer}</td>
-                          <td className="py-4 px-4 text-gray-700">{event.date}</td>
+                          <td className="py-4 px-4 text-gray-700">
+                            {event.organizer}
+                          </td>
+                          <td className="py-4 px-4 text-gray-700">
+                            {event.date}
+                          </td>
                           <td className="py-4 px-4">
                             <Badge className={getStatusColor(event.status)}>
                               {event.status}
@@ -378,23 +440,29 @@ export default function AdminPanel() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                onClick={() => navigate(`/event-details/${event.id}`)}
+                                onClick={() =>
+                                  navigate(`/event-details/${event.id}`)
+                                }
                               >
                                 <Eye className="w-4 h-4" />
                               </Button>
-                              {event.status === 'pending' && (
+                              {event.status === "pending" && (
                                 <>
                                   <Button
                                     size="sm"
                                     className="bg-green-600 hover:bg-green-700 text-white"
-                                    onClick={() => handleEventAction(event.id, 'approve')}
+                                    onClick={() =>
+                                      handleEventAction(event.id, "approve")
+                                    }
                                   >
                                     <Check className="w-4 h-4" />
                                   </Button>
                                   <Button
                                     size="sm"
                                     variant="destructive"
-                                    onClick={() => handleEventAction(event.id, 'reject')}
+                                    onClick={() =>
+                                      handleEventAction(event.id, "reject")
+                                    }
                                   >
                                     <X className="w-4 h-4" />
                                   </Button>
@@ -425,12 +493,24 @@ export default function AdminPanel() {
                   <table className="w-full">
                     <thead>
                       <tr className="border-b">
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">User</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Email</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Role</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Events</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-700">Actions</th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          User
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Email
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Role
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Status
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Events
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-700">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -440,17 +520,31 @@ export default function AdminPanel() {
                             <div className="flex items-center space-x-3">
                               <Avatar className="w-8 h-8">
                                 <AvatarImage src={user.avatar} />
-                                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                                <AvatarFallback>
+                                  {user.name.charAt(0)}
+                                </AvatarFallback>
                               </Avatar>
                               <div>
-                                <div className="font-medium text-gray-900">{user.name}</div>
-                                <div className="text-sm text-gray-500">Joined {user.joinDate}</div>
+                                <div className="font-medium text-gray-900">
+                                  {user.name}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  Joined {user.joinDate}
+                                </div>
                               </div>
                             </div>
                           </td>
-                          <td className="py-4 px-4 text-gray-700">{user.email}</td>
+                          <td className="py-4 px-4 text-gray-700">
+                            {user.email}
+                          </td>
                           <td className="py-4 px-4">
-                            <Badge className={user.role === 'organizer' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}>
+                            <Badge
+                              className={
+                                user.role === "organizer"
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-gray-100 text-gray-800"
+                              }
+                            >
                               {user.role}
                             </Badge>
                           </td>
@@ -459,21 +553,33 @@ export default function AdminPanel() {
                               {user.status}
                             </Badge>
                           </td>
-                          <td className="py-4 px-4 text-gray-700">{user.eventsCreated}</td>
+                          <td className="py-4 px-4 text-gray-700">
+                            {user.eventsCreated}
+                          </td>
                           <td className="py-4 px-4">
                             <div className="flex space-x-2">
                               <Button
                                 size="sm"
                                 variant="outline"
-                                className={user.status === 'banned' ? 'border-green-500 text-green-600 hover:bg-green-50' : 'border-orange-500 text-orange-600 hover:bg-orange-50'}
-                                onClick={() => handleUserAction(user.id, 'ban')}
+                                className={
+                                  user.status === "banned"
+                                    ? "border-green-500 text-green-600 hover:bg-green-50"
+                                    : "border-orange-500 text-orange-600 hover:bg-orange-50"
+                                }
+                                onClick={() => handleUserAction(user.id, "ban")}
                               >
-                                {user.status === 'banned' ? 'Unban' : <Ban className="w-4 h-4" />}
+                                {user.status === "banned" ? (
+                                  "Unban"
+                                ) : (
+                                  <Ban className="w-4 h-4" />
+                                )}
                               </Button>
                               <Button
                                 size="sm"
                                 variant="destructive"
-                                onClick={() => handleUserAction(user.id, 'delete')}
+                                onClick={() =>
+                                  handleUserAction(user.id, "delete")
+                                }
                               >
                                 <Trash2 className="w-4 h-4" />
                               </Button>
@@ -500,44 +606,68 @@ export default function AdminPanel() {
               <CardContent className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <h3 className="font-semibold text-gray-900">Event Settings</h3>
+                    <h3 className="font-semibold text-gray-900">
+                      Event Settings
+                    </h3>
                     <div className="space-y-3">
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start"
+                      >
                         <Calendar className="w-4 h-4 mr-2" />
                         Auto-approve Events
                       </Button>
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start"
+                      >
                         <Users className="w-4 h-4 mr-2" />
                         Default Max Capacity
                       </Button>
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start"
+                      >
                         <Clock className="w-4 h-4 mr-2" />
                         Event Duration Limits
                       </Button>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-4">
-                    <h3 className="font-semibold text-gray-900">User Settings</h3>
+                    <h3 className="font-semibold text-gray-900">
+                      User Settings
+                    </h3>
                     <div className="space-y-3">
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start"
+                      >
                         <UserCheck className="w-4 h-4 mr-2" />
                         Registration Settings
                       </Button>
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start"
+                      >
                         <Shield className="w-4 h-4 mr-2" />
                         Permission Management
                       </Button>
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start"
+                      >
                         <AlertTriangle className="w-4 h-4 mr-2" />
                         Content Moderation
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="border-t pt-6">
-                  <h3 className="font-semibold text-gray-900 mb-4">System Actions</h3>
+                  <h3 className="font-semibold text-gray-900 mb-4">
+                    System Actions
+                  </h3>
                   <div className="flex space-x-4">
                     <Button variant="outline">
                       <BarChart3 className="w-4 h-4 mr-2" />

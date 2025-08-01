@@ -19,15 +19,16 @@ export class MobileNavigation {
 
   createMobileElements() {
     // Create mobile menu button
-    const header = document.querySelector('header');
+    const header = document.querySelector("header");
     if (!header) return;
 
-    const existingButton = header.querySelector('.mobile-menu-button');
+    const existingButton = header.querySelector(".mobile-menu-button");
     if (existingButton) return;
 
     // Create hamburger button
-    const button = document.createElement('button');
-    button.className = 'mobile-menu-button md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors';
+    const button = document.createElement("button");
+    button.className =
+      "mobile-menu-button md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors";
     button.innerHTML = `
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -35,7 +36,7 @@ export class MobileNavigation {
     `;
 
     // Insert button before desktop nav
-    const desktopNav = header.querySelector('nav');
+    const desktopNav = header.querySelector("nav");
     if (desktopNav) {
       desktopNav.parentNode.insertBefore(button, desktopNav);
     }
@@ -47,11 +48,11 @@ export class MobileNavigation {
   }
 
   createMobileMenu() {
-    const existingMenu = document.querySelector('.mobile-menu-overlay');
+    const existingMenu = document.querySelector(".mobile-menu-overlay");
     if (existingMenu) return;
 
-    const overlay = document.createElement('div');
-    overlay.className = 'mobile-menu-overlay fixed inset-0 z-50 hidden';
+    const overlay = document.createElement("div");
+    overlay.className = "mobile-menu-overlay fixed inset-0 z-50 hidden";
     overlay.innerHTML = `
       <div class="fixed inset-0 bg-black bg-opacity-50" data-close-menu></div>
       <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out">
@@ -82,25 +83,28 @@ export class MobileNavigation {
   bindEvents() {
     // Mobile menu button click
     if (this.mobileMenuButton) {
-      this.mobileMenuButton.addEventListener('click', () => this.toggleMenu());
+      this.mobileMenuButton.addEventListener("click", () => this.toggleMenu());
     }
 
     // Close menu events
-    document.addEventListener('click', (e) => {
-      if (e.target.hasAttribute('data-close-menu') || e.target.closest('.close-mobile-menu')) {
+    document.addEventListener("click", (e) => {
+      if (
+        e.target.hasAttribute("data-close-menu") ||
+        e.target.closest(".close-mobile-menu")
+      ) {
         this.closeMenu();
       }
     });
 
     // Escape key to close menu
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isOpen) {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && this.isOpen) {
         this.closeMenu();
       }
     });
 
     // Handle window resize
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       if (window.innerWidth >= 768 && this.isOpen) {
         this.closeMenu();
       }
@@ -117,38 +121,38 @@ export class MobileNavigation {
 
   openMenu() {
     if (!this.mobileMenu) return;
-    
+
     this.isOpen = true;
-    this.mobileMenu.classList.remove('hidden');
-    
+    this.mobileMenu.classList.remove("hidden");
+
     // Animate menu slide in
     setTimeout(() => {
-      const menuPanel = this.mobileMenu.querySelector('.fixed.top-0.right-0');
+      const menuPanel = this.mobileMenu.querySelector(".fixed.top-0.right-0");
       if (menuPanel) {
-        menuPanel.classList.remove('translate-x-full');
+        menuPanel.classList.remove("translate-x-full");
       }
     }, 10);
 
     // Prevent body scroll
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   }
 
   closeMenu() {
     if (!this.mobileMenu || !this.isOpen) return;
-    
-    const menuPanel = this.mobileMenu.querySelector('.fixed.top-0.right-0');
+
+    const menuPanel = this.mobileMenu.querySelector(".fixed.top-0.right-0");
     if (menuPanel) {
-      menuPanel.classList.add('translate-x-full');
+      menuPanel.classList.add("translate-x-full");
     }
 
     // Hide overlay after animation
     setTimeout(() => {
-      this.mobileMenu.classList.add('hidden');
+      this.mobileMenu.classList.add("hidden");
       this.isOpen = false;
     }, 300);
 
     // Restore body scroll
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }
 }
 
@@ -157,11 +161,11 @@ export class MobileNavigation {
  */
 export class UserManager {
   constructor() {
-    this.storageKey = 'eventhub_user';
+    this.storageKey = "eventhub_user";
     this.roleRedirectMap = {
-      'admin': '/admin-panel',
-      'organizer': '/dashboard',
-      'participant': '/dashboard'
+      admin: "/admin-panel",
+      organizer: "/dashboard",
+      participant: "/dashboard",
     };
   }
 
@@ -171,7 +175,7 @@ export class UserManager {
       localStorage.setItem(this.storageKey, JSON.stringify(userData));
       return true;
     } catch (error) {
-      console.error('Failed to store user data:', error);
+      console.error("Failed to store user data:", error);
       return false;
     }
   }
@@ -182,7 +186,7 @@ export class UserManager {
       const userData = localStorage.getItem(this.storageKey);
       return userData ? JSON.parse(userData) : null;
     } catch (error) {
-      console.error('Failed to retrieve user data:', error);
+      console.error("Failed to retrieve user data:", error);
       return null;
     }
   }
@@ -193,7 +197,7 @@ export class UserManager {
       localStorage.removeItem(this.storageKey);
       return true;
     } catch (error) {
-      console.error('Failed to clear user data:', error);
+      console.error("Failed to clear user data:", error);
       return false;
     }
   }
@@ -211,7 +215,7 @@ export class UserManager {
   }
 
   // Redirect user based on role
-  redirectByRole(defaultPath = '/') {
+  redirectByRole(defaultPath = "/") {
     const user = this.getUser();
     if (!user || !user.role) {
       window.location.href = defaultPath;
@@ -234,7 +238,7 @@ export class UserManager {
   // Simulate logout and redirect
   simulateLogout() {
     this.clearUser();
-    window.location.href = '/';
+    window.location.href = "/";
   }
 }
 
@@ -247,9 +251,9 @@ export class ModalManager {
   }
 
   // Show registration success modal
-  showRegistrationSuccess(eventTitle, redirectPath = '/dashboard') {
-    const modal = this.createModal('registration-success', {
-      title: 'Registration Successful!',
+  showRegistrationSuccess(eventTitle, redirectPath = "/dashboard") {
+    const modal = this.createModal("registration-success", {
+      title: "Registration Successful!",
       content: `
         <div class="text-center">
           <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
@@ -273,7 +277,7 @@ export class ModalManager {
             </button>
           </div>
         </div>
-      `
+      `,
     });
 
     this.showModal(modal);
@@ -281,8 +285,8 @@ export class ModalManager {
 
   // Show event creation success modal
   showEventCreationSuccess(eventTitle, eventId) {
-    const modal = this.createModal('event-creation-success', {
-      title: 'Event Created Successfully!',
+    const modal = this.createModal("event-creation-success", {
+      title: "Event Created Successfully!",
       content: `
         <div class="text-center">
           <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
@@ -309,7 +313,7 @@ export class ModalManager {
             </button>
           </div>
         </div>
-      `
+      `,
     });
 
     this.showModal(modal);
@@ -317,9 +321,10 @@ export class ModalManager {
 
   // Create modal element
   createModal(id, options) {
-    const modal = document.createElement('div');
+    const modal = document.createElement("div");
     modal.id = id;
-    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50';
+    modal.className =
+      "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50";
     modal.innerHTML = `
       <div class="bg-white rounded-lg shadow-xl max-w-md w-full transform transition-all" onclick="event.stopPropagation()">
         <div class="p-6">
@@ -329,21 +334,21 @@ export class ModalManager {
     `;
 
     // Bind events
-    modal.addEventListener('click', (e) => {
+    modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         this.closeModal(modal);
       }
     });
 
     // Close button events
-    modal.querySelectorAll('.modal-close').forEach(btn => {
-      btn.addEventListener('click', () => this.closeModal(modal));
+    modal.querySelectorAll(".modal-close").forEach((btn) => {
+      btn.addEventListener("click", () => this.closeModal(modal));
     });
 
     // Redirect button events
-    modal.querySelectorAll('.modal-redirect').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const redirectPath = e.target.getAttribute('data-redirect');
+    modal.querySelectorAll(".modal-redirect").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const redirectPath = e.target.getAttribute("data-redirect");
         if (redirectPath) {
           window.location.href = redirectPath;
         }
@@ -352,12 +357,12 @@ export class ModalManager {
 
     // Escape key to close
     const handleEscape = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         this.closeModal(modal);
-        document.removeEventListener('keydown', handleEscape);
+        document.removeEventListener("keydown", handleEscape);
       }
     };
-    document.addEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
 
     return modal;
   }
@@ -372,11 +377,11 @@ export class ModalManager {
     this.activeModal = modal;
 
     // Prevent body scroll
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     // Animate in
     setTimeout(() => {
-      modal.querySelector('.bg-white').style.transform = 'scale(1)';
+      modal.querySelector(".bg-white").style.transform = "scale(1)";
     }, 10);
   }
 
@@ -385,8 +390,8 @@ export class ModalManager {
     if (!modal || !modal.parentNode) return;
 
     // Animate out
-    modal.querySelector('.bg-white').style.transform = 'scale(0.95)';
-    modal.style.opacity = '0';
+    modal.querySelector(".bg-white").style.transform = "scale(0.95)";
+    modal.style.opacity = "0";
 
     setTimeout(() => {
       if (modal.parentNode) {
@@ -396,13 +401,13 @@ export class ModalManager {
         this.activeModal = null;
       }
       // Restore body scroll
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }, 200);
   }
 }
 
 // Initialize mobile navigation when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   new MobileNavigation();
 });
 

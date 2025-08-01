@@ -4,20 +4,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Calendar, 
-  Clock, 
-  MapPin, 
-  Users, 
-  Upload, 
-  CheckCircle, 
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
+  Upload,
+  CheckCircle,
   AlertCircle,
   ArrowLeft,
   Image as ImageIcon,
-  X
+  X,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -28,7 +39,7 @@ export default function CreateEvent() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -37,7 +48,7 @@ export default function CreateEvent() {
     venue: "",
     category: "",
     maxSeats: "",
-    image: null as File | null
+    image: null as File | null,
   });
 
   const categories = [
@@ -50,24 +61,24 @@ export default function CreateEvent() {
     "Entertainment",
     "Social",
     "Professional",
-    "Academic"
+    "Academic",
   ];
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.title.trim()) {
       newErrors.title = "Event title is required";
     } else if (formData.title.trim().length < 5) {
       newErrors.title = "Title must be at least 5 characters";
     }
-    
+
     if (!formData.description.trim()) {
       newErrors.description = "Event description is required";
     } else if (formData.description.trim().length < 20) {
       newErrors.description = "Description must be at least 20 characters";
     }
-    
+
     if (!formData.date) {
       newErrors.date = "Event date is required";
     } else {
@@ -78,19 +89,19 @@ export default function CreateEvent() {
         newErrors.date = "Event date cannot be in the past";
       }
     }
-    
+
     if (!formData.time) {
       newErrors.time = "Event time is required";
     }
-    
+
     if (!formData.venue.trim()) {
       newErrors.venue = "Venue is required";
     }
-    
+
     if (!formData.category) {
       newErrors.category = "Category is required";
     }
-    
+
     if (!formData.maxSeats) {
       newErrors.maxSeats = "Maximum seats is required";
     } else if (parseInt(formData.maxSeats) < 1) {
@@ -98,34 +109,41 @@ export default function CreateEvent() {
     } else if (parseInt(formData.maxSeats) > 10000) {
       newErrors.maxSeats = "Maximum seats cannot exceed 10,000";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        setErrors(prev => ({ ...prev, image: "Image size must be less than 5MB" }));
+      if (file.size > 5 * 1024 * 1024) {
+        // 5MB limit
+        setErrors((prev) => ({
+          ...prev,
+          image: "Image size must be less than 5MB",
+        }));
         return;
       }
-      
-      if (!file.type.startsWith('image/')) {
-        setErrors(prev => ({ ...prev, image: "Please select a valid image file" }));
+
+      if (!file.type.startsWith("image/")) {
+        setErrors((prev) => ({
+          ...prev,
+          image: "Please select a valid image file",
+        }));
         return;
       }
-      
-      setFormData(prev => ({ ...prev, image: file }));
-      setErrors(prev => ({ ...prev, image: "" }));
-      
+
+      setFormData((prev) => ({ ...prev, image: file }));
+      setErrors((prev) => ({ ...prev, image: "" }));
+
       // Create preview
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -136,20 +154,20 @@ export default function CreateEvent() {
   };
 
   const removeImage = () => {
-    setFormData(prev => ({ ...prev, image: null }));
+    setFormData((prev) => ({ ...prev, image: null }));
     setImagePreview(null);
-    setErrors(prev => ({ ...prev, image: "" }));
+    setErrors((prev) => ({ ...prev, image: "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
@@ -159,11 +177,11 @@ export default function CreateEvent() {
     }, 2000);
   };
 
-  const handleModalClose = (action: 'dashboard' | 'event-details') => {
+  const handleModalClose = (action: "dashboard" | "event-details") => {
     setShowSuccessModal(false);
-    if (action === 'dashboard') {
-      navigate('/dashboard');
-    } else if (action === 'event-details' && createdEventId) {
+    if (action === "dashboard") {
+      navigate("/dashboard");
+    } else if (action === "event-details" && createdEventId) {
       navigate(`/event-details/${createdEventId}`);
     }
   };
@@ -183,13 +201,31 @@ export default function CreateEvent() {
               </span>
             </Link>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium">Home</Link>
-              <Link to="/events" className="text-gray-700 hover:text-indigo-600 font-medium">Events</Link>
-              <Link to="/dashboard" className="text-gray-700 hover:text-indigo-600 font-medium">Dashboard</Link>
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                to="/events"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Events
+              </Link>
+              <Link
+                to="/dashboard"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Dashboard
+              </Link>
             </nav>
             <div className="flex items-center space-x-4">
               <Link to="/login">
-                <Button variant="ghost" className="text-gray-700 hover:text-indigo-600">
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 hover:text-indigo-600"
+                >
                   Sign In
                 </Button>
               </Link>
@@ -206,8 +242,8 @@ export default function CreateEvent() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
         <div className="mb-6">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => navigate(-1)}
             className="text-gray-600 hover:text-indigo-600"
           >
@@ -218,16 +254,21 @@ export default function CreateEvent() {
 
         {/* Page Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create New Event</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Create New Event
+          </h1>
           <p className="text-gray-600">
-            Fill in the details below to create an amazing event for your community
+            Fill in the details below to create an amazing event for your
+            community
           </p>
         </div>
 
         {/* Main Form */}
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl">
           <CardHeader>
-            <CardTitle className="text-2xl text-center text-gray-900">Event Details</CardTitle>
+            <CardTitle className="text-2xl text-center text-gray-900">
+              Event Details
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -242,7 +283,7 @@ export default function CreateEvent() {
                   placeholder="Enter event title"
                   value={formData.title}
                   onChange={(e) => handleInputChange("title", e.target.value)}
-                  className={`h-12 ${errors.title ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
+                  className={`h-12 ${errors.title ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                 />
                 {errors.title && (
                   <p className="text-sm text-red-600 flex items-center mt-1">
@@ -254,15 +295,20 @@ export default function CreateEvent() {
 
               {/* Description */}
               <div className="space-y-2">
-                <Label htmlFor="description" className="text-gray-700 font-medium">
+                <Label
+                  htmlFor="description"
+                  className="text-gray-700 font-medium"
+                >
                   Event Description *
                 </Label>
                 <Textarea
                   id="description"
                   placeholder="Describe your event in detail..."
                   value={formData.description}
-                  onChange={(e) => handleInputChange("description", e.target.value)}
-                  className={`min-h-32 ${errors.description ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
+                  onChange={(e) =>
+                    handleInputChange("description", e.target.value)
+                  }
+                  className={`min-h-32 ${errors.description ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                 />
                 {errors.description && (
                   <p className="text-sm text-red-600 flex items-center mt-1">
@@ -284,8 +330,10 @@ export default function CreateEvent() {
                       id="date"
                       type="date"
                       value={formData.date}
-                      onChange={(e) => handleInputChange("date", e.target.value)}
-                      className={`pl-10 h-12 ${errors.date ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
+                      onChange={(e) =>
+                        handleInputChange("date", e.target.value)
+                      }
+                      className={`pl-10 h-12 ${errors.date ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                     />
                   </div>
                   {errors.date && (
@@ -306,8 +354,10 @@ export default function CreateEvent() {
                       id="time"
                       type="time"
                       value={formData.time}
-                      onChange={(e) => handleInputChange("time", e.target.value)}
-                      className={`pl-10 h-12 ${errors.time ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
+                      onChange={(e) =>
+                        handleInputChange("time", e.target.value)
+                      }
+                      className={`pl-10 h-12 ${errors.time ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                     />
                   </div>
                   {errors.time && (
@@ -332,7 +382,7 @@ export default function CreateEvent() {
                     placeholder="Enter venue location"
                     value={formData.venue}
                     onChange={(e) => handleInputChange("venue", e.target.value)}
-                    className={`pl-10 h-12 ${errors.venue ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
+                    className={`pl-10 h-12 ${errors.venue ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                   />
                 </div>
                 {errors.venue && (
@@ -346,11 +396,21 @@ export default function CreateEvent() {
               {/* Category and Max Seats */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="category" className="text-gray-700 font-medium">
+                  <Label
+                    htmlFor="category"
+                    className="text-gray-700 font-medium"
+                  >
                     Category *
                   </Label>
-                  <Select value={formData.category} onValueChange={(value) => handleInputChange("category", value)}>
-                    <SelectTrigger className={`h-12 ${errors.category ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}>
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) =>
+                      handleInputChange("category", value)
+                    }
+                  >
+                    <SelectTrigger
+                      className={`h-12 ${errors.category ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
+                    >
                       <SelectValue placeholder="Select event category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -370,7 +430,10 @@ export default function CreateEvent() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="maxSeats" className="text-gray-700 font-medium">
+                  <Label
+                    htmlFor="maxSeats"
+                    className="text-gray-700 font-medium"
+                  >
                     Maximum Seats *
                   </Label>
                   <div className="relative">
@@ -380,8 +443,10 @@ export default function CreateEvent() {
                       type="number"
                       placeholder="Enter max capacity"
                       value={formData.maxSeats}
-                      onChange={(e) => handleInputChange("maxSeats", e.target.value)}
-                      className={`pl-10 h-12 ${errors.maxSeats ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
+                      onChange={(e) =>
+                        handleInputChange("maxSeats", e.target.value)
+                      }
+                      className={`pl-10 h-12 ${errors.maxSeats ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"}`}
                       min="1"
                       max="10000"
                     />
@@ -397,9 +462,7 @@ export default function CreateEvent() {
 
               {/* Image Upload */}
               <div className="space-y-2">
-                <Label className="text-gray-700 font-medium">
-                  Event Image
-                </Label>
+                <Label className="text-gray-700 font-medium">Event Image</Label>
                 {!imagePreview ? (
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-indigo-400 transition-colors">
                     <input
@@ -411,8 +474,12 @@ export default function CreateEvent() {
                     />
                     <label htmlFor="image-upload" className="cursor-pointer">
                       <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600 mb-2">Click to upload event image</p>
-                      <p className="text-sm text-gray-500">PNG, JPG up to 5MB</p>
+                      <p className="text-gray-600 mb-2">
+                        Click to upload event image
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        PNG, JPG up to 5MB
+                      </p>
                     </label>
                   </div>
                 ) : (
@@ -469,26 +536,34 @@ export default function CreateEvent() {
           </DialogHeader>
           <div className="text-center space-y-4">
             <p className="text-gray-600">
-              Your event <span className="font-medium text-gray-900">"{formData.title}"</span> has been created successfully!
+              Your event{" "}
+              <span className="font-medium text-gray-900">
+                "{formData.title}"
+              </span>{" "}
+              has been created successfully!
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
-              <Badge className="bg-indigo-100 text-indigo-800">Event ID: {createdEventId}</Badge>
-              <Badge className="bg-green-100 text-green-800">{formData.category}</Badge>
+              <Badge className="bg-indigo-100 text-indigo-800">
+                Event ID: {createdEventId}
+              </Badge>
+              <Badge className="bg-green-100 text-green-800">
+                {formData.category}
+              </Badge>
             </div>
             <p className="text-sm text-gray-500">
               Your event is now live and people can start registering!
             </p>
             <div className="flex space-x-3 pt-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="flex-1"
-                onClick={() => handleModalClose('dashboard')}
+                onClick={() => handleModalClose("dashboard")}
               >
                 Go to Dashboard
               </Button>
-              <Button 
+              <Button
                 className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
-                onClick={() => handleModalClose('event-details')}
+                onClick={() => handleModalClose("event-details")}
               >
                 View Event
               </Button>

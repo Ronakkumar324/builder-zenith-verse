@@ -17,7 +17,7 @@ import {
   UserCheck,
   BarChart3,
   Star,
-  ArrowRight
+  ArrowRight,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -28,7 +28,7 @@ export default function Dashboard() {
     name: "Ronak",
     email: "ronak@college.edu",
     role: "organizer", // Can be "participant" or "organizer"
-    avatar: "/placeholder.svg"
+    avatar: "/placeholder.svg",
   });
 
   const registeredEvents = [
@@ -41,7 +41,7 @@ export default function Dashboard() {
       status: "upcoming",
       category: "Technology",
       attendees: 150,
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ export default function Dashboard() {
       status: "upcoming",
       category: "Cultural",
       attendees: 500,
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
     },
     {
       id: 3,
@@ -63,8 +63,8 @@ export default function Dashboard() {
       status: "completed",
       category: "Education",
       attendees: 45,
-      image: "/placeholder.svg"
-    }
+      image: "/placeholder.svg",
+    },
   ];
 
   const organizedEvents = [
@@ -78,7 +78,7 @@ export default function Dashboard() {
       category: "Technology",
       registrations: 89,
       capacity: 120,
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
     },
     {
       id: 5,
@@ -90,8 +90,8 @@ export default function Dashboard() {
       category: "Career",
       registrations: 234,
       capacity: 300,
-      image: "/placeholder.svg"
-    }
+      image: "/placeholder.svg",
+    },
   ];
 
   const handleLogout = () => {
@@ -130,9 +130,24 @@ export default function Dashboard() {
               </span>
             </Link>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium">Home</Link>
-              <Link to="/events" className="text-gray-700 hover:text-indigo-600 font-medium">Events</Link>
-              <Link to="/dashboard" className="text-indigo-600 font-medium border-b-2 border-indigo-600">Dashboard</Link>
+              <Link
+                to="/"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                to="/events"
+                className="text-gray-700 hover:text-indigo-600 font-medium"
+              >
+                Events
+              </Link>
+              <Link
+                to="/dashboard"
+                className="text-indigo-600 font-medium border-b-2 border-indigo-600"
+              >
+                Dashboard
+              </Link>
             </nav>
             <div className="flex items-center space-x-4">
               <ThemeToggle />
@@ -163,7 +178,9 @@ export default function Dashboard() {
               </h1>
               <p className="text-gray-600 flex items-center">
                 <UserCheck className="w-4 h-4 mr-2" />
-                {user.role === "organizer" ? "Event Organizer" : "Event Participant"}
+                {user.role === "organizer"
+                  ? "Event Organizer"
+                  : "Event Participant"}
               </p>
             </div>
             <div className="mt-4 sm:mt-0 flex items-center space-x-3">
@@ -175,8 +192,8 @@ export default function Dashboard() {
                   </Button>
                 </Link>
               )}
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={handleLogout}
                 className="border-red-200 text-red-600 hover:bg-red-50"
               >
@@ -196,8 +213,12 @@ export default function Dashboard() {
                   <Calendar className="w-6 h-6 text-white" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm text-muted-foreground">Registered Events</p>
-                  <p className="text-2xl font-bold text-foreground">{registeredEvents.length}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Registered Events
+                  </p>
+                  <p className="text-2xl font-bold text-foreground">
+                    {registeredEvents.length}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -205,30 +226,45 @@ export default function Dashboard() {
 
           {user.role === "organizer" && (
             <>
-              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.1s'}}>
+              <Card
+                className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: "0.1s" }}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow transition-all duration-300">
                       <BarChart3 className="w-6 h-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm text-muted-foreground">Events Organized</p>
-                      <p className="text-2xl font-bold text-foreground">{organizedEvents.length}</p>
+                      <p className="text-sm text-muted-foreground">
+                        Events Organized
+                      </p>
+                      <p className="text-2xl font-bold text-foreground">
+                        {organizedEvents.length}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.2s'}}>
+              <Card
+                className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: "0.2s" }}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow-purple transition-all duration-300">
                       <Users className="w-6 h-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm text-muted-foreground">Total Registrations</p>
+                      <p className="text-sm text-muted-foreground">
+                        Total Registrations
+                      </p>
                       <p className="text-2xl font-bold text-foreground">
-                        {organizedEvents.reduce((sum, event) => sum + event.registrations, 0)}
+                        {organizedEvents.reduce(
+                          (sum, event) => sum + event.registrations,
+                          0,
+                        )}
                       </p>
                     </div>
                   </div>
@@ -239,23 +275,35 @@ export default function Dashboard() {
 
           {user.role === "participant" && (
             <>
-              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.1s'}}>
+              <Card
+                className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: "0.1s" }}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow transition-all duration-300">
                       <Star className="w-6 h-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm text-muted-foreground">Events Attended</p>
+                      <p className="text-sm text-muted-foreground">
+                        Events Attended
+                      </p>
                       <p className="text-2xl font-bold text-foreground">
-                        {registeredEvents.filter(e => e.status === "completed").length}
+                        {
+                          registeredEvents.filter(
+                            (e) => e.status === "completed",
+                          ).length
+                        }
                       </p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.2s'}}>
+              <Card
+                className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: "0.2s" }}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-center">
                     <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow-purple transition-all duration-300">
@@ -264,7 +312,11 @@ export default function Dashboard() {
                     <div className="ml-4">
                       <p className="text-sm text-muted-foreground">Upcoming</p>
                       <p className="text-2xl font-bold text-foreground">
-                        {registeredEvents.filter(e => e.status === "upcoming").length}
+                        {
+                          registeredEvents.filter(
+                            (e) => e.status === "upcoming",
+                          ).length
+                        }
                       </p>
                     </div>
                   </div>
@@ -288,12 +340,18 @@ export default function Dashboard() {
           <TabsContent value="registered" className="space-y-6">
             <Card className="card-elevated animate-slide-in-up">
               <CardHeader>
-                <CardTitle className="text-xl font-semibold text-gradient-primary">My Registered Events</CardTitle>
+                <CardTitle className="text-xl font-semibold text-gradient-primary">
+                  My Registered Events
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid-cards">
                   {registeredEvents.map((event, index) => (
-                    <Card key={event.id} className="card-modern group hover:scale-105 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
+                    <Card
+                      key={event.id}
+                      className="card-modern group hover:scale-105 animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
                       <div className="relative overflow-hidden">
                         <img
                           src={event.image}
@@ -301,7 +359,9 @@ export default function Dashboard() {
                           className="w-full h-32 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                        <Badge className={`absolute top-3 right-3 ${getStatusColor(event.status)} shadow-lg`}>
+                        <Badge
+                          className={`absolute top-3 right-3 ${getStatusColor(event.status)} shadow-lg`}
+                        >
                           {event.status}
                         </Badge>
                       </div>
@@ -342,12 +402,17 @@ export default function Dashboard() {
             <TabsContent value="organized" className="space-y-6">
               <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-xl font-semibold">Events I'm Organizing</CardTitle>
+                  <CardTitle className="text-xl font-semibold">
+                    Events I'm Organizing
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {organizedEvents.map((event) => (
-                      <Card key={event.id} className="hover:shadow-lg transition-shadow">
+                      <Card
+                        key={event.id}
+                        className="hover:shadow-lg transition-shadow"
+                      >
                         <div className="relative">
                           <img
                             src={event.image}
@@ -359,7 +424,9 @@ export default function Dashboard() {
                           </Badge>
                         </div>
                         <CardContent className="p-4">
-                          <h3 className="font-semibold text-gray-900 mb-2">{event.title}</h3>
+                          <h3 className="font-semibold text-gray-900 mb-2">
+                            {event.title}
+                          </h3>
                           <div className="space-y-1 text-sm text-gray-600 mb-3">
                             <div className="flex items-center">
                               <Calendar className="w-4 h-4 mr-2" />
@@ -375,10 +442,17 @@ export default function Dashboard() {
                             </div>
                           </div>
                           <div className="flex space-x-2">
-                            <Button variant="outline" size="sm" className="flex-1">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="flex-1"
+                            >
                               Edit
                             </Button>
-                            <Button size="sm" className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600">
+                            <Button
+                              size="sm"
+                              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600"
+                            >
                               Manage
                             </Button>
                           </div>
@@ -395,19 +469,25 @@ export default function Dashboard() {
           <TabsContent value="profile" className="space-y-6">
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
-                <CardTitle className="text-xl font-semibold">Profile Settings</CardTitle>
+                <CardTitle className="text-xl font-semibold">
+                  Profile Settings
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center space-x-4">
                   <Avatar className="w-20 h-20">
                     <AvatarImage src={user.avatar} />
-                    <AvatarFallback className="text-2xl">{user.name.charAt(0)}</AvatarFallback>
+                    <AvatarFallback className="text-2xl">
+                      {user.name.charAt(0)}
+                    </AvatarFallback>
                   </Avatar>
                   <div>
                     <h3 className="text-lg font-semibold">{user.name}</h3>
                     <p className="text-gray-600">{user.email}</p>
                     <Badge className="mt-1 bg-indigo-100 text-indigo-800">
-                      {user.role === "organizer" ? "Event Organizer" : "Event Participant"}
+                      {user.role === "organizer"
+                        ? "Event Organizer"
+                        : "Event Participant"}
                     </Badge>
                   </div>
                 </div>
