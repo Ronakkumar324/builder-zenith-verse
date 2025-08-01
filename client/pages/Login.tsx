@@ -93,11 +93,26 @@ export default function Login() {
                     type="email"
                     placeholder="Enter your email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 h-12 border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
-                    required
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (errors.email) {
+                        setErrors(prev => ({...prev, email: undefined}));
+                      }
+                    }}
+                    className={`pl-10 h-12 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
                   />
+                  {errors.email && (
+                    <div className="absolute right-3 top-3">
+                      <AlertCircle className="w-5 h-5 text-red-500" />
+                    </div>
+                  )}
                 </div>
+                {errors.email && (
+                  <p className="text-sm text-red-600 flex items-center mt-1">
+                    <AlertCircle className="w-4 h-4 mr-1" />
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -111,9 +126,13 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 h-12 border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
-                    required
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (errors.password) {
+                        setErrors(prev => ({...prev, password: undefined}));
+                      }
+                    }}
+                    className={`pl-10 pr-10 h-12 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-500'}`}
                   />
                   <button
                     type="button"
@@ -127,6 +146,12 @@ export default function Login() {
                     )}
                   </button>
                 </div>
+                {errors.password && (
+                  <p className="text-sm text-red-600 flex items-center mt-1">
+                    <AlertCircle className="w-4 h-4 mr-1" />
+                    {errors.password}
+                  </p>
+                )}
               </div>
 
               <div className="flex items-center justify-between">
