@@ -135,15 +135,18 @@ export default function Dashboard() {
               <Link to="/dashboard" className="text-indigo-600 font-medium border-b-2 border-indigo-600">Dashboard</Link>
             </nav>
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm">
+              <ThemeToggle />
+              <Button variant="ghost" size="sm" className="hover:bg-muted/80">
                 <Bell className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="hover:bg-muted/80">
                 <Settings className="w-5 h-5" />
               </Button>
-              <Avatar className="w-8 h-8">
+              <Avatar className="w-8 h-8 ring-2 ring-background shadow-lg">
                 <AvatarImage src={user.avatar} />
-                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-medium">
+                  {user.name.charAt(0)}
+                </AvatarFallback>
               </Avatar>
             </div>
           </div>
