@@ -31,6 +31,7 @@ export default function Events() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isLoading, setIsLoading] = useState(true);
+  const [registeringEvents, setRegisteringEvents] = useState<Set<string>>(new Set());
 
   const categories = [
     "Technology",
@@ -102,7 +103,15 @@ export default function Events() {
   };
 
   const handleRegister = async (eventId: string) => {
+    // Prevent multiple registrations for the same event
+    if (registeringEvents.has(eventId)) return;
+
+    setRegisteringEvents(prev => new Set(prev).add(eventId));
+
     try {
+      // Simulate API delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       // In a real app, you'd get this from auth context
       const currentUser = {
         email: "ronak@college.edu",
@@ -114,7 +123,7 @@ export default function Events() {
 
       if (success) {
         // Show success message
-        alert(`Successfully registered for the event! A confirmation has been sent to ${currentUser.email}`);
+        alert(`✅ Successfully registered for the event! A confirmation has been sent to ${currentUser.email}`);
 
         // Reload events to show updated registration count
         loadEvents();
@@ -122,18 +131,24 @@ export default function Events() {
         // Handle registration failure
         const event = eventStorage.getEventById(eventId);
         if (!event) {
-          alert("Event not found!");
+          alert("❌ Event not found!");
         } else if (event.registrations.includes(currentUser.email)) {
-          alert("You are already registered for this event!");
+          alert("ℹ️ You are already registered for this event!");
         } else if (event.attendees >= event.maxSeats) {
-          alert("Sorry, this event is fully booked!");
+          alert("⚠️ Sorry, this event is fully booked!");
         } else {
-          alert("Registration failed. Please try again.");
+          alert("❌ Registration failed. Please try again.");
         }
       }
     } catch (error) {
       console.error("Registration error:", error);
-      alert("Registration failed. Please try again.");
+      alert("❌ Registration failed. Please try again.");
+    } finally {
+      setRegisteringEvents(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(eventId);
+        return newSet;
+      });
     }
   };
 
@@ -393,10 +408,20 @@ export default function Events() {
                     {getAvailableSeats(event) > 0 ? (
                       <Button
                         onClick={() => handleRegister(event.id)}
-                        className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium"
+                        disabled={registeringEvents.has(event.id)}
+                        className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium disabled:opacity-70"
                       >
-                        <LogIn className="w-4 h-4 mr-2" />
-                        Register
+                        {registeringEvents.has(event.id) ? (
+                          <>
+                            <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            Registering...
+                          </>
+                        ) : (
+                          <>
+                            <LogIn className="w-4 h-4 mr-2" />
+                            Register
+                          </>
+                        )}
                       </Button>
                     ) : (
                       <Button
