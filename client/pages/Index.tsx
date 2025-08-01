@@ -19,7 +19,7 @@ export default function Index() {
     activeEvents: 0,
     totalStudents: 0,
     thisMonth: 0,
-    featured: 0
+    featured: 0,
   });
 
   useEffect(() => {
@@ -36,25 +36,30 @@ export default function Index() {
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
-    const thisMonthEvents = allEvents.filter(event => {
+    const thisMonthEvents = allEvents.filter((event) => {
       const eventDate = new Date(event.date);
-      return eventDate.getMonth() === currentMonth &&
-             eventDate.getFullYear() === currentYear;
+      return (
+        eventDate.getMonth() === currentMonth &&
+        eventDate.getFullYear() === currentYear
+      );
     });
 
     // Calculate total students (sum of all attendees)
-    const totalStudents = allEvents.reduce((sum, event) => sum + event.attendees, 0);
+    const totalStudents = allEvents.reduce(
+      (sum, event) => sum + event.attendees,
+      0,
+    );
 
     // Count featured events (you can add a featured property to events later)
-    const featuredEvents = activeEvents.filter(event =>
-      event.attendees > 100 // Consider high-attendance events as "featured"
+    const featuredEvents = activeEvents.filter(
+      (event) => event.attendees > 100, // Consider high-attendance events as "featured"
     );
 
     setRealTimeStats({
       activeEvents: activeEvents.length,
       totalStudents: totalStudents,
       thisMonth: thisMonthEvents.length,
-      featured: featuredEvents.length
+      featured: featuredEvents.length,
     });
   };
 
@@ -70,13 +75,14 @@ export default function Index() {
       .slice(0, 3);
 
     // Convert to the format expected by the UI
-    const formattedEvents = sortedEvents.map(event => ({
+    const formattedEvents = sortedEvents.map((event) => ({
       id: event.id,
       title: event.title,
       date: eventStorage.formatDate(event.date),
-      time: event.startTime && event.endTime ?
-        `${event.startTime} - ${event.endTime}` :
-        event.time || event.startTime,
+      time:
+        event.startTime && event.endTime
+          ? `${event.startTime} - ${event.endTime}`
+          : event.time || event.startTime,
       location: event.venue,
       attendees: event.attendees,
       category: event.category,
@@ -91,22 +97,25 @@ export default function Index() {
     {
       label: "Active Events",
       value: realTimeStats.activeEvents.toString(),
-      icon: Calendar
+      icon: Calendar,
     },
     {
       label: "Total Students",
-      value: realTimeStats.totalStudents > 0 ? `${realTimeStats.totalStudents.toLocaleString()}+` : "0",
-      icon: Users
+      value:
+        realTimeStats.totalStudents > 0
+          ? `${realTimeStats.totalStudents.toLocaleString()}+`
+          : "0",
+      icon: Users,
     },
     {
       label: "This Month",
       value: realTimeStats.thisMonth.toString(),
-      icon: Clock
+      icon: Clock,
     },
     {
       label: "Featured",
       value: realTimeStats.featured.toString(),
-      icon: Star
+      icon: Star,
     },
   ];
 
