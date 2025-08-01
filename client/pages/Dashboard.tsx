@@ -239,15 +239,15 @@ export default function Dashboard() {
 
           {user.role === "participant" && (
             <>
-              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.1s'}}>
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <Star className="w-6 h-6 text-green-600" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow transition-all duration-300">
+                      <Star className="w-6 h-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm text-gray-600">Events Attended</p>
-                      <p className="text-2xl font-bold text-gray-900">
+                      <p className="text-sm text-muted-foreground">Events Attended</p>
+                      <p className="text-2xl font-bold text-foreground">
                         {registeredEvents.filter(e => e.status === "completed").length}
                       </p>
                     </div>
@@ -255,15 +255,15 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+              <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in" style={{animationDelay: '0.2s'}}>
                 <CardContent className="p-6">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-purple-600" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow-purple transition-all duration-300">
+                      <Clock className="w-6 h-6 text-white" />
                     </div>
                     <div className="ml-4">
-                      <p className="text-sm text-gray-600">Upcoming</p>
-                      <p className="text-2xl font-bold text-gray-900">
+                      <p className="text-sm text-muted-foreground">Upcoming</p>
+                      <p className="text-2xl font-bold text-foreground">
                         {registeredEvents.filter(e => e.status === "upcoming").length}
                       </p>
                     </div>
