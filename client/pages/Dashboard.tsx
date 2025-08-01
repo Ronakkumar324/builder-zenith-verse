@@ -188,16 +188,16 @@ export default function Dashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+        <div className="grid-cards mb-8">
+          <Card className="card-elevated group hover:scale-105 transition-all duration-300 animate-fade-in">
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <Calendar className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-glow transition-all duration-300">
+                  <Calendar className="w-6 h-6 text-white" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm text-gray-600">Registered Events</p>
-                  <p className="text-2xl font-bold text-gray-900">{registeredEvents.length}</p>
+                  <p className="text-sm text-muted-foreground">Registered Events</p>
+                  <p className="text-2xl font-bold text-foreground">{registeredEvents.length}</p>
                 </div>
               </div>
             </CardContent>
