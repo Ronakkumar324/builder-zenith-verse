@@ -1,21 +1,56 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Calendar, Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Calendar, Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{email?: string; password?: string}>({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: {email?: string; password?: string} = {};
+
+    // Email validation
+    if (!email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Password validation
+    if (!password) {
+      newErrors.password = "Password is required";
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempted with:", { email, password });
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Simulate API call
+    setTimeout(() => {
+      setIsLoading(false);
+      // Redirect to dashboard on successful login
+      navigate("/dashboard");
+    }, 1000);
   };
 
   return (
