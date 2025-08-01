@@ -58,8 +58,6 @@ export default function Events() {
     try {
       const activeEvents = eventStorage.getActiveEvents();
       setEvents(activeEvents);
-      // Clear any existing filters to show updated data
-      filterEvents();
     } catch (error) {
       console.error("Failed to load events:", error);
       setEvents([]);
@@ -133,7 +131,8 @@ export default function Events() {
         alert(`✅ Successfully registered for the event! A confirmation has been sent to ${currentUser.email}`);
 
         // Reload events to show updated registration count
-        loadEvents();
+        const updatedEvents = eventStorage.getActiveEvents();
+        setEvents(updatedEvents);
       } else {
         // Handle registration failure
         const event = eventStorage.getEventById(eventId);
