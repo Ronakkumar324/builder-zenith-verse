@@ -291,7 +291,7 @@ export default function Dashboard() {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm text-muted-foreground">
-                    Registered Events
+                    Completed Events
                   </p>
                   <p className="text-2xl font-bold text-foreground">
                     {registeredEvents.length}
@@ -339,7 +339,7 @@ export default function Dashboard() {
                       </p>
                       <p className="text-2xl font-bold text-foreground">
                         {organizedEvents.reduce(
-                          (sum, event) => sum + event.registrations,
+                          (sum, event) => sum + event.attendees,
                           0,
                         )}
                       </p>
@@ -418,7 +418,7 @@ export default function Dashboard() {
             <Card className="card-elevated animate-slide-in-up">
               <CardHeader>
                 <CardTitle className="text-xl font-semibold text-gradient-primary">
-                  My Registered Events
+                  My Completed Events
                 </CardTitle>
               </CardHeader>
               <CardContent>
