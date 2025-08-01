@@ -30,7 +30,8 @@ import {
   Shield,
   HelpCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { eventStorage, type Event } from "@/lib/events";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -42,68 +43,31 @@ export default function Dashboard() {
     avatar: "/placeholder.svg",
   });
 
-  const registeredEvents = [
-    {
-      id: 1,
-      title: "Tech Innovation Summit 2024",
-      date: "March 15, 2024",
-      time: "10:00 AM",
-      location: "Main Auditorium",
-      status: "upcoming",
-      category: "Technology",
-      attendees: 150,
-      image: "/placeholder.svg",
-    },
-    {
-      id: 2,
-      title: "Annual Cultural Festival",
-      date: "March 22, 2024",
-      time: "6:00 PM",
-      location: "College Grounds",
-      status: "upcoming",
-      category: "Cultural",
-      attendees: 500,
-      image: "/placeholder.svg",
-    },
-    {
-      id: 3,
-      title: "Web Development Workshop",
-      date: "March 8, 2024",
-      time: "2:00 PM",
-      location: "Computer Lab",
-      status: "completed",
-      category: "Education",
-      attendees: 45,
-      image: "/placeholder.svg",
-    },
-  ];
+  const [registeredEvents, setRegisteredEvents] = useState<Event[]>([]);
+  const [organizedEvents, setOrganizedEvents] = useState<Event[]>([]);
 
-  const organizedEvents = [
-    {
-      id: 4,
-      title: "AI & Machine Learning Seminar",
-      date: "April 12, 2024",
-      time: "11:00 AM",
-      location: "Conference Hall",
-      status: "upcoming",
-      category: "Technology",
-      registrations: 89,
-      capacity: 120,
-      image: "/placeholder.svg",
-    },
-    {
-      id: 5,
-      title: "Spring Career Fair",
-      date: "April 18, 2024",
-      time: "9:00 AM",
-      location: "Student Center",
-      status: "upcoming",
-      category: "Career",
-      registrations: 234,
-      capacity: 300,
-      image: "/placeholder.svg",
-    },
-  ];
+  useEffect(() => {
+    loadUserEvents();
+  }, []);
+
+  const loadUserEvents = () => {
+    // Get all events from localStorage
+    const allEvents = eventStorage.getAllEvents();
+
+    // For "My Events" - show only completed events created by the current user
+    const userCompletedEvents = allEvents.filter(event =>
+      event.organizerId === "user_123" && // Current user's ID
+      event.status === "completed"
+    );
+
+    // For "Organized Events" - show all events created by the current user
+    const userOrganizedEvents = allEvents.filter(event =>
+      event.organizerId === "user_123" // Current user's ID
+    );
+
+    setRegisteredEvents(userCompletedEvents);
+    setOrganizedEvents(userOrganizedEvents);
+  };
 
   const handleLogout = () => {
     // Simulate logout
@@ -484,17 +448,20 @@ export default function Dashboard() {
                         </h3>
                         <div className="space-y-1 text-sm text-muted-foreground mb-3">
                           <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-2 text-primary" />
-                            {event.date}
-                          </div>
-                          <div className="flex items-center">
-                            <Clock className="w-4 h-4 mr-2 text-primary" />
-                            {event.time}
-                          </div>
-                          <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-2 text-primary" />
-                            {event.location}
-                          </div>
+                    <Calendar className="w-4 h-4 mr-2 text-primary" />
+                    {eventStorage.formatDate(event.date)}
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-2 text-primary" />
+                    {event.startTime && event.endTime ?
+                      `${event.startTime} - ${event.endTime}` :
+                      event.time || event.startTime
+                    }
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 mr-2 text-primary" />
+                    {event.venue}
+                  </div>
                         </div>
                         <Link to={`/event-details/${event.id}`}>
                           <Button className="w-full btn-primary group-hover:shadow-lg">
@@ -542,17 +509,20 @@ export default function Dashboard() {
                           </h3>
                           <div className="space-y-1 text-sm text-gray-600 mb-3">
                             <div className="flex items-center">
-                              <Calendar className="w-4 h-4 mr-2" />
-                              {event.date}
-                            </div>
-                            <div className="flex items-center">
-                              <Clock className="w-4 h-4 mr-2" />
-                              {event.time}
-                            </div>
-                            <div className="flex items-center">
-                              <Users className="w-4 h-4 mr-2" />
-                              {event.registrations}/{event.capacity} registered
-                            </div>
+                            <Calendar className="w-4 h-4 mr-2" />
+                            {eventStorage.formatDate(event.date)}
+                          </div>
+                          <div className="flex items-center">
+                            <Clock className="w-4 h-4 mr-2" />
+                            {event.startTime && event.endTime ?
+                              `${event.startTime} - ${event.endTime}` :
+                              event.time || event.startTime
+                            }
+                          </div>
+                          <div className="flex items-center">
+                            <Users className="w-4 h-4 mr-2" />
+                            {event.attendees}/{event.maxSeats} registered
+                          </div>
                           </div>
                           <div className="flex space-x-2">
                             <Button
