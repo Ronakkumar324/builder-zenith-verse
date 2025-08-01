@@ -323,7 +323,10 @@ export default function Events() {
                     </div>
                     <div className="flex items-center">
                       <Clock className="w-4 h-4 mr-2 text-indigo-500" />
-                      {event.time}
+                      {event.startTime && event.endTime ?
+                        `${event.startTime} - ${event.endTime}` :
+                        event.time || event.startTime
+                      }
                     </div>
                     <div className="flex items-center">
                       <MapPin className="w-4 h-4 mr-2 text-indigo-500" />
