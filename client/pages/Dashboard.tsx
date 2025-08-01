@@ -4,14 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  Calendar, 
-  Users, 
-  MapPin, 
-  Clock, 
-  Plus, 
-  LogOut, 
-  Settings, 
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import {
+  Calendar,
+  Users,
+  MapPin,
+  Clock,
+  Plus,
+  LogOut,
+  Settings,
   Bell,
   UserCheck,
   BarChart3,
