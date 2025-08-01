@@ -292,38 +292,41 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="grid-cards">
-                  {registeredEvents.map((event) => (
-                    <Card key={event.id} className="hover:shadow-lg transition-shadow">
-                      <div className="relative">
+                  {registeredEvents.map((event, index) => (
+                    <Card key={event.id} className="card-modern group hover:scale-105 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
+                      <div className="relative overflow-hidden">
                         <img
                           src={event.image}
                           alt={event.title}
-                          className="w-full h-32 object-cover rounded-t-lg"
+                          className="w-full h-32 object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-110"
                         />
-                        <Badge className={`absolute top-3 right-3 ${getStatusColor(event.status)}`}>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <Badge className={`absolute top-3 right-3 ${getStatusColor(event.status)} shadow-lg`}>
                           {event.status}
                         </Badge>
                       </div>
                       <CardContent className="p-4">
-                        <h3 className="font-semibold text-gray-900 mb-2">{event.title}</h3>
-                        <div className="space-y-1 text-sm text-gray-600 mb-3">
+                        <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                          {event.title}
+                        </h3>
+                        <div className="space-y-1 text-sm text-muted-foreground mb-3">
                           <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-2" />
+                            <Calendar className="w-4 h-4 mr-2 text-primary" />
                             {event.date}
                           </div>
                           <div className="flex items-center">
-                            <Clock className="w-4 h-4 mr-2" />
+                            <Clock className="w-4 h-4 mr-2 text-primary" />
                             {event.time}
                           </div>
                           <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-2" />
+                            <MapPin className="w-4 h-4 mr-2 text-primary" />
                             {event.location}
                           </div>
                         </div>
                         <Link to={`/event-details/${event.id}`}>
-                          <Button variant="outline" size="sm" className="w-full">
+                          <Button className="w-full btn-primary group-hover:shadow-lg">
                             View Details
-                            <ArrowRight className="w-4 h-4 ml-2" />
+                            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                           </Button>
                         </Link>
                       </CardContent>
