@@ -489,6 +489,57 @@ export default function Events() {
           </div>
         )}
       </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold">EventHub</span>
+              </div>
+              <p className="text-gray-400">
+                The ultimate platform for college event management and discovery.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-4">Platform</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link to="/events" className="hover:text-white">Browse Events</Link></li>
+                <li><Link to="/create-event" className="hover:text-white">Create Event</Link></li>
+                <li><Link to="/dashboard" className="hover:text-white">Dashboard</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-4">Account</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link to="/login" className="hover:text-white">Sign In</Link></li>
+                <li><Link to="/signup" className="hover:text-white">Sign Up</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-4">Support</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li>
+                  <a
+                    href="mailto:adishinde62020@gmail.com?subject=EventHub Support&body=Phone: 8830899840"
+                    className="hover:text-white"
+                  >
+                    Contact Us
+                  </a>
+                </li>
+                <li><a href="#" className="hover:text-white">Help Center</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 EventHub. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
