@@ -211,7 +211,7 @@ export default function Index() {
               </Button>
             </Link>
             <Link to="/login">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-indigo-600 text-lg px-8 transition-colors duration-300">
                 Sign In
               </Button>
             </Link>
@@ -252,7 +252,7 @@ export default function Index() {
             <div>
               <h3 className="font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="mailto:support@eventhub.edu" className="hover:text-white">Contact Us</a></li>
+                <li><a href="mailto:adishinde62020@gmail.com?subject=EventHub Support&body=Phone: 8830899840" className="hover:text-white">Contact Us</a></li>
                 <li><a href="#" className="hover:text-white">Help Center</a></li>
               </ul>
             </div>
